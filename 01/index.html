@@ -4,18 +4,114 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="vue.js" ></script>
+    <style>
+    span:hover {
+    background: lightgreen;
+    }
+    </style>
 </head>
 <body>
 <div id="app">
-    <p>{{ message }}</p>
+    <div>
+    <p>{{ catalog.name }}</p>
+    <ul>
+        <li v-for="c in categories" :key="c.id">{{c.name}} | {{c.description}}
+            <ul>
+                <li v-for="subc in c.subcategories" :key="subc.id">{{subc.name}} | {{subc.description}}
+                  <ul>
+                      <li v-for="p in subc.products" :key="p.id" @click="product = p; quantity = ''" @mouseenter="">
+                          <span>{{p.name}}</span>
+                      </li>
+                  </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    </div>
+
+    <div v-if="product !== ''">
+        {{product.name}} {{product.price}} per {{product.unit}}
+        <input type="number" min="0" v-model="quantity" />
+        <button :disabled="quantity <= 0">Add {{quantity}} {{product.unit}} to cart</button>
+    </div>
 </div>
 <script>
-    var app = new Vue({
+    let catalog = {
+  "name" : "Seafood",
+  "desc" : "Delicious seafood direct to your home",
+  "productcategories": [
+    {
+      "id": 1,
+      "name": "Fish",
+      "description": "Fresh fishes",
+      "subcategories": [
+        {
+          "id": 101,
+          "name": "Salt water fish",
+          "description": "Fishes from the sea",
+          "products": [
+            {"id": 10101, "name": "Shark", "price": "$8.99", "unit":  "lb", "inventory": 2000},
+            {"id": 10102, "name": "Belt fish", "price": "$6.99", "unit":  "lb", "inventory": 1000},
+            {"id": 10103, "name": "Catfish", "price": "$3.99", "unit":  "lb", "inventory": 1200}
+          ]
+        },
+        {
+          "id": 102,
+          "name": "White water fish",
+          "description": "Fishes from the rivers",
+          "products": [
+            {"id": 10201, "name": "Shark", "price": "$8.99", "unit":  "lb", "inventory": 2000},
+            {"id": 10202, "name": "Belt fish", "price": "$6.99", "unit":  "lb", "inventory": 1000},
+            {"id": 10203, "name": "Catfish", "price": "$3.99", "unit":  "lb", "inventory": 1200}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Crab",
+      "description": "Fresh crabs",
+      "subcategories": [
+        {
+          "id": 201,
+          "name": "Salt water crab",
+          "description": "Crabs from the sea",
+          "products": [
+            {"id": 20101, "name": "Shark", "price": "$8.99", "unit":  "lb", "inventory": 2000},
+            {"id": 20102, "name": "Belt fish", "price": "$6.99", "unit":  "lb", "inventory": 1000},
+            {"id": 20103, "name": "Catfish", "price": "$3.99", "unit":  "lb", "inventory": 1200}
+          ]
+        },
+        {
+          "id": 202,
+          "name": "White water crab",
+          "description": "Crabs from the rivers",
+          "products": [
+            {"id": 20201, "name": "Shark", "price": "$8.99", "unit":  "lb", "inventory": 2000},
+            {"id": 20202, "name": "Belt fish", "price": "$6.99", "unit":  "lb", "inventory": 1000},
+            {"id": 20203, "name": "Catfish", "price": "$3.99", "unit":  "lb", "inventory": 1200}
+          ]
+        }
+      ]
+    }
+  ]
+};
+    let app = new Vue({
         el : '#app',
         data: {
-            message: 'hello the first vue.js!'
+            catalog: catalog,
+            categories: catalog.productcategories,
+            quantity: '',
+            product: ''
+            //product: catalog.productcategories[0].subcategories[0].products[0]
+        },
+        methods: {
+            showProductDetails(p) {
+            product = p;
+            }
         }
-    })
+    });
+
 </script>
 </body>
 </html>
