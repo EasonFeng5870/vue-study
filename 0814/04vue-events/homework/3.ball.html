@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆球游戏</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            width: 440px;
+            height: 440px;
+            background-color: blanchedalmond;
+            display: inline;
+        }
+        .ball {
+            position:absolute;
+            width: 60px;
+            height: 60px;
+            left:100px;
+            top:100px;
+            background-color: red;
+            border-radius: 30px;
+            z-index:100
+        }
+    </style>
+</head>
+<body>
+    <div id="Application">
+        <div class="container" @mousemove.stop="move">
+            <div class="ball" :style="{left: offsetX+'px', top:offsetY+'px'}">
+            </div>
+        </div>
+    </div>
+    <script>
+        const App = {
+            data() {
+               return {
+                    offsetX:0,
+                    offsetY:0
+               }
+            },
+            methods: {
+               move(event) {
+                   if (event.clientX + 30 > 440) {
+                        this.offsetX = 440 - 60
+                   } else if (event.clientX - 30 < 0) {
+                        this.offsetX = 0
+                   } else {
+                        this.offsetX = event.clientX - 30
+                   }
+                   if (event.clientY + 30 > 440) {
+                        this.offsetY = 440 - 60
+                   } else if (event.clientY - 30 < 0) {
+                        this.offsetY = 0
+                   } else {
+                        this.offsetY = event.clientY - 30
+                   }
+               }
+            }
+        }
+        Vue.createApp(App).mount("#Application") 
+    </script>
+</body>
+</html>

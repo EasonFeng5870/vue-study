@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性与方法</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="Application">
+        <div>{{typeFunc()}}</div>
+        <button @click="add">Add</button>
+    </div>
+    <script>
+        // 定义组件
+        const App = {
+            data() {
+                return {
+                    count:0,
+                }
+            },
+            computed: {
+                type: {
+                    get() {
+                        return this.count > 10 ? "大" : "小"
+                    },
+                    set(newValue) {
+                        if (newValue == "大") {
+                            this.count = 11
+                        } else {
+                            this.count = 0
+                        }
+                    }
+                }
+            },
+            methods: {
+                add() {
+                    this.count ++
+                },
+                typeFunc() {
+                    return this.count > 10 ? "大" : "小"
+                }
+            }
+        }
+        // 创建组件并获取到组件实例
+        let instance = Vue.createApp(App).mount("#Application") 
+        // 可以获取到组件中的data数据
+        console.log(instance.count)
+        // 可以获取到组件中的data数据
+        console.log(instance.$data.count)
+        // 修改属性
+        instance.count = 9
+        // // 下面获取到的count的值为5
+        console.log(instance.count)
+        console.log(instance.$data.count)
+        // 0
+        console.log(instance.count)
+        instance.add()
+        // 1
+        console.log(instance.count)
+        console.log(instance.type)
+        console.log(instance.count)
+        console.log(instance.type)
+        instance.type = "大"
+        console.log(instance.count)
+    </script>
+</body>
+</html>

@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="vue.js" ></script>
+    <script src="vue.js"></script>
 </head>
 <body>
 <div id="app">
-    <p>{{ message }}</p>
+    <h1>test</h1>
+    <p>{{ msg2 }}</p>
 </div>
+
 <script>
+    var shoppingcart = 'count: 8'
     var app = new Vue({
         el : '#app',
         data: {
-            message: 'hello the first vue.js!'
+            msg: shoppingcart,
+            msg2: 'abc'
         }
     })
 </script>

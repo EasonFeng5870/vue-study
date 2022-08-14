@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class绑定</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .red {
+            color:red
+        }
+        .blue {
+            color:blue
+        }
+        .font {
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="Application">
+        <div :class="[redClass, fontClass]">
+            示例文案
+        </div>
+        <div :style="{color:textColor,fontSize:textFont}">
+            示例文案
+        </div>
+    </div>
+    <script>
+        const App = {
+            data() {
+               return {
+                    isBlue:true,
+                    isRed:false,
+                    style:{
+                        blue:true,
+                        red:false
+                    },
+                    redClass:"red",
+                    fontClass:"font",
+                    textColor:'green',
+                    textFont:'50px'
+                }
+            }
+        }
+        Vue.createApp(App).mount("#Application") 
+    </script>
+</body>
+</html>

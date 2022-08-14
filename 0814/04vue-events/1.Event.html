@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件绑定</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="Application">
+        <p>多事件</p>
+       <div>点击次数:{{count}}</div>
+       <button @click="click(2), log($event)">点击</button>
+        <p>冒泡事件</p>
+       <div @click="click1" style="border:solid red">
+            外层
+           <div @click="click2" style="border:solid red">
+               中层
+               <div @click="click3" style="border:solid red">
+                   点击
+               </div>
+           </div>
+       </div>
+        <br/>
+        <p>捕获事件</p>
+        <div @click.capture="click1" style="border:solid red">
+            外层
+            <div @click.capture="click2" style="border:solid red">
+                中层
+                <div @click.capture="click3" style="border:solid red">
+                    点击
+                </div>
+            </div>
+        </div>
+        <p>stop-阻止事件</p>
+        <div @click.stop="click1" style="border:solid red">
+            外层
+            <div @click.stop="click2" style="border:solid red">
+                中层
+                <div @click.stop.once="click3" style="border:solid red">
+                    点击
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const App = {
+            data() {
+               return {
+                   count:0
+               }
+            },
+            methods: {
+                click(step) { 
+                    this.count += step
+                },
+                log(event) {
+                    console.log(event)
+                },
+                click1() {
+                    console.log("外层")
+                },
+                click2() {
+                    console.log("中层")
+                },
+                click3() {
+                    console.log("内层")
+                }
+            }
+        }
+        Vue.createApp(App).mount("#Application") 
+    </script>
+</body>
+</html>

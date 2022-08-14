@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单输入</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="Application">
+        <input v-model.trim="textField"/>
+        <p>文本输入框内容:{{textField}}</p>
+        <br/>
+        <textarea v-model="textarea"></textarea>
+        <p style="white-space: pre-line;">多行文本内容:{{textarea}}</p>
+        <input type="checkbox" v-model="checkbox"/>
+        <p>{{checkbox}}</p>
+        <br />
+        <input type="checkbox" value="足球" v-model="checkList"/>足球
+        <input type="checkbox" value="篮球" v-model="checkList"/>篮球
+        <input type="checkbox" value="排球" v-model="checkList"/>排球
+        <p>{{checkList}}</p>
+        <hr />
+        <input type="radio" value="男" v-model="sex"/>男
+        <input type="radio" value="女" v-model="sex"/>女
+        <p>{{sex}}</p>
+        <hr />
+        <select v-model="select">
+            <option>男</option>
+            <option>女</option>
+        </select>
+        <p>{{select}}</p>
+        <hr />
+        <select v-model="selectList" multiple>
+            <option>足球</option>
+            <option>篮球</option>
+            <option>排球</option>
+        </select>
+        <p>{{selectList}}</p>
+    </div>
+    <script>
+        const App = {
+            data() {
+               return {
+                   textField:"",
+                   textarea:"",
+                   checkbox:false,
+                   checkList:[],
+                   sex:"",
+                   select:"",
+                   selectList:[]
+                }
+            }
+        }
+        Vue.createApp(App).mount("#Application") 
+    </script>
+</body>
+</html>

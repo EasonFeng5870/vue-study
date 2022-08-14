@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var count = 0
+        function clickFunc() {
+            document.getElementById("h1").innerText = `${++count}`
+            document.getElementById("img").style.visibility = count % 2 == 0 ? "visible" : "hidden"
+        }
+    </script>
+    <script>
+        var a = 100 // 定义变量a 其存储的值为数值100
+        var b = "HelloWorld" // 定义变量b 其存储的值为字符串
+        var c = {
+            name:"abc"
+        } // 定义键值对变量 c
+        var d = [1, 2, 3,] // 定义列表变量d
+        var e = false // 定义布尔变量e
+
+        var m = 1 + 1 // 算数运算
+        var n = 10 > 5 // 比较运算
+        var o = false && false // 逻辑运算
+        var p = 1 << 1 // 位运算
+
+        function func1(param) {
+            console.log("执行了func1函数" + param);
+        }
+
+        var func2 = (param) => {
+            console.log("执行了func2函数" + param);
+        }
+
+        func1("hello")
+        func2("world")
+
+        var i = 0
+        var j = 1
+        if (i > j) {
+            console.log("i > j")
+        } else if (i == j) {
+            console.log("i == j")
+        } else {
+            console.log("i < j")
+        }
+
+        var u = 0
+        switch (u) {
+            case 0:
+                console.log("0")
+                break
+            case 1:
+                console.log("1")
+                break
+            default:
+                console.log("-")
+        }
+
+        var v = 10
+        while (v > 0) {
+            v -= 1
+            console.log(v)
+        }
+        for(v = 0 ; v < 10; v ++) {
+            console.log(v)
+        }
+    </script>
+</head>
+<body>
+    <div style="text-align: center;">    
+        <h1 id="h1" style="font-size: 40px;">数值:0</h1>
+        <div id="img" style="visibility: visible;">
+            <img src="demo.png" width="200px">
+        </div>
+        <button style="font-size: 30px; background-color: burlywood;" onclick="clickFunc()">点击</button>
+    </div>
+</body>
+</html>

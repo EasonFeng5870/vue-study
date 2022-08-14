@@ -9,6 +9,7 @@ import com.cxytiandi.elementui.base.ResponseData;
 @RequestMapping("/home")
 public class HomeController {
 
+	// load data
 	@GetMapping("/loadData")
 	public ResponseData loadData() {
 		return ResponseData.ok("hello");
