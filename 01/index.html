@@ -96,6 +96,11 @@
     }
   ]
 };
+    let cart = {
+        lineitems: [
+            {id: 10101, quantity:3, unit:"lb", price: 8.99, amount: 26.97 }
+        ]
+    };
     let app = new Vue({
         el : '#app',
         data: {
@@ -108,6 +113,8 @@
         methods: {
             showProductDetails(p) {
             product = p;
+            },
+            addToCart(p) {
             }
         }
     });
