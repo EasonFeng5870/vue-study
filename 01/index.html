@@ -32,89 +32,57 @@
     <div v-if="product !== ''">
         {{product.name}} {{product.price}} per {{product.unit}}
         <input type="number" min="0" v-model="quantity" />
-        <button :disabled="quantity <= 0">Add {{quantity}} {{product.unit}} to cart</button>
+        <button :disabled="quantity <= 0" @click="addToCart(product.id, quantity, product.unit, product.price)">Add {{quantity}} {{product.unit}} to cart</button>
+    </div>
+
+    <div v-if="cart.lineitems.length > 0">
+        <ul>
+            <li v-for="l in cart.lineitems" :key="l.id">
+                Buy {{l.quantity}} {{l.unit}} of {{l.id}} priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
+            </li>
+        </ul>
+        Total: ${{total}}
+        <button>Place Order</button>
     </div>
 </div>
+<script src="./catalog.js"></script>
 <script>
-    let catalog = {
-  "name" : "Seafood",
-  "desc" : "Delicious seafood direct to your home",
-  "productcategories": [
-    {
-      "id": 1,
-      "name": "Fish",
-      "description": "Fresh fishes",
-      "subcategories": [
-        {
-          "id": 101,
-          "name": "Salt water fish",
-          "description": "Fishes from the sea",
-          "products": [
-            {"id": 10101, "name": "Shark", "price": "$8.99", "unit":  "lb", "inventory": 2000},
-            {"id": 10102, "name": "Belt fish", "price": "$6.99", "unit":  "lb", "inventory": 1000},
-            {"id": 10103, "name": "Catfish", "price": "$3.99", "unit":  "lb", "inventory": 1200}
-          ]
-        },
-        {
-          "id": 102,
-          "name": "White water fish",
-          "description": "Fishes from the rivers",
-          "products": [
-            {"id": 10201, "name": "Shark", "price": "$8.99", "unit":  "lb", "inventory": 2000},
-            {"id": 10202, "name": "Belt fish", "price": "$6.99", "unit":  "lb", "inventory": 1000},
-            {"id": 10203, "name": "Catfish", "price": "$3.99", "unit":  "lb", "inventory": 1200}
-          ]
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Crab",
-      "description": "Fresh crabs",
-      "subcategories": [
-        {
-          "id": 201,
-          "name": "Salt water crab",
-          "description": "Crabs from the sea",
-          "products": [
-            {"id": 20101, "name": "Shark", "price": "$8.99", "unit":  "lb", "inventory": 2000},
-            {"id": 20102, "name": "Belt fish", "price": "$6.99", "unit":  "lb", "inventory": 1000},
-            {"id": 20103, "name": "Catfish", "price": "$3.99", "unit":  "lb", "inventory": 1200}
-          ]
-        },
-        {
-          "id": 202,
-          "name": "White water crab",
-          "description": "Crabs from the rivers",
-          "products": [
-            {"id": 20201, "name": "Shark", "price": "$8.99", "unit":  "lb", "inventory": 2000},
-            {"id": 20202, "name": "Belt fish", "price": "$6.99", "unit":  "lb", "inventory": 1000},
-            {"id": 20203, "name": "Catfish", "price": "$3.99", "unit":  "lb", "inventory": 1200}
-          ]
-        }
-      ]
-    }
-  ]
-};
     let cart = {
-        lineitems: [
-            {id: 10101, quantity:3, unit:"lb", price: 8.99, amount: 26.97 }
-        ]
+        lineitems: [],
+        total: 0
+    };
+    let order = {
+        lineitems: [],
+        address: null,
+        payment: null,
+        tax: 0,
+        total: 0
     };
     let app = new Vue({
         el : '#app',
         data: {
             catalog: catalog,
+            cart: cart,
             categories: catalog.productcategories,
             quantity: '',
             product: ''
             //product: catalog.productcategories[0].subcategories[0].products[0]
         },
+        computed: {
+          total() {
+            let t = 0;
+            cart.lineitems.forEach(function (l) { t += l.price * l.quantity} );
+            cart.total = t;
+            return t;
+          }
+        },
         methods: {
             showProductDetails(p) {
             product = p;
             },
-            addToCart(p) {
+            addToCart(pid, quant, unit, price, amount) {
+                let lineitem = {id: pid, quantity: quant, unit: unit, price: price, amount: quant * price};
+                cart.lineitems.push(lineitem);
             }
         }
     });
