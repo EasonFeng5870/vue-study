@@ -17,6 +17,8 @@ npm install vue
 
 npm install --glboal vue-cli
 
+vue init webpack study
+
 npm install yarn
 
 

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account page</title>
+    <link rel="shortcut icon" href="img/cart.png" type="image/x-icon" sizes="16*16">
+
+    <!-- fontawesome link -->
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+
+
+        <div class="container">
+            <div class="navbar">
+                <div class="brand">
+                    <a href="index.html"><img src="img/logo.png" alt=""></a>
+                </div>
+        
+                <nav>
+                    <ul id="menuItems">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="product.html">Products</a></li>
+                        <li><a href="singleproduct.html">Single Product</a></li>
+                        <li><a href="CartPage.html">Cart Page</a></li>
+                        <li><a href="account.html">Account</a></li>        
+                    </ul>
+                 </nav>
+
+                 <img src="img/cart.png" alt="" class="cart-icon" width="30px" height="30px">
+                 <img src="img/menu.png" alt="" class="menu-icon" width="30px" height="30px" onclick="toggleMenus()">
+                
+            </div>
+    
+    
+    
+        </div>
+  
+
+
+<!-- Header area end here -->
+
+
+    <main class="account-page">
+
+    <div class="container ">
+        <div class="row">
+            <div class="col-2">
+                <img src="img/image1.png">
+            </div>
+
+            <div class="col-2">
+                <div class="form-area">
+
+                    <div class="span">
+                        <span onclick="log()">Login</span>
+                        <span onclick="reg()">Register</span>
+
+                        <hr id="indecator"> 
+                    </div>
+                   
+                    <div class="login-form" id="logForm">
+                        <input type="text" placeholder="Username">
+                        <input type="password" placeholder="Password">
+                        <a href="">Forgot Password</a>
+                        <button class="btn">Log In </button>
+                    </div>
+
+                    <div class="reg-form" id="regForm">
+                        <input type="text" placeholder="Username">
+                        <input type="email" placeholder="Email">
+                        <input type="password" placeholder="Password">
+                        <button class="btn">Register </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+
+    </main>
+
+<!-- Footer section start here -->
+    <footer>
+        <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="footer-col-4">
+                            <h3>Download App</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, nulla.</p>
+                            <img src="img/play-store.png" alt="">
+                            <img src="img/app-store.png" alt="">
+                        </div>
+
+                        <div class="footer-col-4">
+                            <img src="img/logo.png" alt="">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex rem veniam accusantium ad illo ut excepturi commodi laboriosam, repellat, voluptatem in velit, officia non ratione.</p>
+                            
+                        </div>
+
+                        <div class="footer-col-4">
+                            <h3>contact us</h3>
+
+                            <a href="">Home</a> <br>
+                            <a href="">About</a> <br>
+                            <a href="">Contact</a><br>
+                            <a href="">Sevice</a><br>
+                            <a href="">Feedback</a><br>
+                           
+                           
+                            
+                           
+                            
+                        </div>
+
+                        <div class="footer-col-4">
+                            <h3>Follow us</h3>
+                            <a href="">LinkedIn</a> <br>
+                            <a href="">Facebook</a> <br>
+                            <a href="">Facebook</a> <br>
+                            <a href="">Twitter</a> <br>
+                            <a href="">Instagram</a><br>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+    </footer>
+
+    
+    <!-- javascript to togggle menu -->
+   
+    
+    <script>
+        var menuItems = document.getElementById("menuItems");
+        menuItems.style.maxHeight = '0px';
+        function toggleMenus(){
+            if( menuItems.style.maxHeight == '0px'){
+                menuItems.style.maxHeight = '250px';
+            }else{
+                menuItems.style.maxHeight = '0px';
+            }
+        }
+    </script>
+
+    <!-- javascript to account  page -->
+
+<script>
+
+    var logForm = document.getElementById("logForm");
+    var regForm = document.getElementById("regForm");
+    var indecator = document.getElementById("indecator");
+   
+
+
+    function log(){
+         logForm.style.transform ="translateX(330px)"
+        regForm.style.transform = "translateX(300px)"
+        indecator.style.transform = "translateX(-143px)"
+    }
+
+    function reg(){
+       logForm.style.transform ="translateX(0px)"
+        regForm.style.transform = "translateX(-140px)"
+        indecator.style.transform = "translateX(-40px)"
+    }
+</script>
+
+
+
+</body>
+</html>

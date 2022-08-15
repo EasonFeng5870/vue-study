@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS选择器</title>
+    <style>
+        * {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        p {
+            color:red;
+        }
+        .p2 {
+            color: green;
+        }
+        #p3 {
+            color:blue;
+        }
+        div p {
+            color: cyan;
+        }
+        .p2, #p3 {
+            font-style: italic;
+        }
+        .text {
+            text-indent: 100px;
+            text-align: right;
+            word-spacing: 20px;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            text-decoration: underline;
+        }
+        .border {
+            border-style: solid;
+            border-width: 4px;
+            border-color: red;
+        }
+        .sp1 {
+            background-color: red;
+            color: white;
+            padding-right: 30px;
+        }
+        .sp2 {
+            background-color: blue;
+            color: white;
+            padding-left: 30px;
+        }
+        .sp3 {
+            background-color: green;
+            color: white;
+            margin-left: 30px;
+        }
+        .sp4 {
+            background-color: indigo;
+            color: white;
+            margin-right: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- --><h1>这里是标题</h1>
+    <p>这里是段落一</p>
+    <p class="p2">这里是段落二</p>
+    <p id="p3">这里是段落三</p>
+    <div><p>div中嵌套的p</p></div>
+    <a>这里是超链接</a>
+
+    <!-- --> <div class="text">文本配置属性 HelloWorld</div>
+    <!-- --> <div class="border">设置元素的边框</div>
+    <span class="sp1">sp1</span>
+    <span class="sp2">sp2</span>
+    <span class="sp3">sp3</span>
+    <span class="sp4">sp4</span>
+</body>
+</html>

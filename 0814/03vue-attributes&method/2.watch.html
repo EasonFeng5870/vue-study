@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性侦听器</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="Application">
+        <input v-model="searchText1"/>
+    </div>
+    <script>
+        const App = {
+            data() {
+                return {
+                    searchText1:"default"
+                }
+            },
+            watch: {
+                searchText1(oldValue, newValue) {
+                    if (newValue.length > 10) {
+                        alert("文本太长了")
+                    }
+                }
+            }
+        }
+        Vue.createApp(App).mount("#Application") 
+    </script>
+</body>
+</html>

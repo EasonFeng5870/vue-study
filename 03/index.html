@@ -14,7 +14,7 @@
     <script src="../01/vue.js" ></script>
 </head>
 <body>
-<div id="app-2">
+<!--<div id="app-2">
   <span v-bind:title="message">
     鼠标悬停几秒钟查看此处动态绑定的提示信息！
   </span>
@@ -26,7 +26,7 @@
             message: '页面加载于 ' + new Date().toLocaleString()
         }
     })
-</script>
+</script>-->
 
 <!--<div id="app-3">
     <p v-if="seen">现在你看到我了</p>
@@ -38,6 +38,7 @@
             seen: false
         }
     })
+    app3.seen = true
 </script>-->
 
 <!--<div id="app-4">
@@ -60,8 +61,8 @@
         }
     })
 </script>-->
-
-<!--<div id="app-5">
+<!--
+<div id="app-5">
     <p>{{ message }}</p>
     <button v-on:click="reverseMessage">反转消息</button>
 </div>
@@ -77,9 +78,8 @@
             }
         }
     })
-</script>-->
+</script>
 
-<!--
 <div id="app-6">
     <p>{{ message }}</p>
     <input v-model="message">
@@ -91,8 +91,7 @@
             message: 'Hello Vue!'
         }
     })
-</script>
--->
+</script>-->
 
 <!-- Vue 的响应式系统 -->
 
@@ -100,7 +99,7 @@
   {{ message }}
 </div>
 <script>
-    var myData = {message: 1}
+    var myData = {message: 2}
     var app7 = new Vue({
         el: '#app-7',
         data: myData
@@ -126,7 +125,7 @@
     })
 </script>-->
 
-<!--<link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 
 <div id="example-3">
     <button @click="show = !show">
@@ -147,7 +146,7 @@
             show: true
         }
     })
-</script>-->
+</script>
 
 
 </body>

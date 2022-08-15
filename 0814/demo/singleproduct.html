@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Product</title>
+    <link rel="shortcut icon" href="img/cart.png" type="image/x-icon" sizes="16*16">
+
+    <!-- fontawesome link -->
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+
+
+        <div class="container">
+            <div class="navbar">
+                <div class="brand">
+                    <a href="index.html"><img src="img/logo.png" alt=""></a>
+                </div>
+        
+                <nav>
+                    <ul id="menuItems">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="product.html">Products</a></li>
+                        <li><a href="singleproduct.html">Single Product</a></li>
+                        <li><a href="CartPage.html">Cart Page</a></li>
+                        <li><a href="account.html">Account</a></li>        
+                    </ul>
+                 </nav>
+
+                 <img src="img/cart.png" alt="" class="cart-icon" width="30px" height="30px">
+                 <img src="img/menu.png" alt="" class="menu-icon" width="30px" height="30px" onclick="toggleMenus()">
+                
+            </div>
+    
+    
+    
+        </div>
+  
+
+
+<!-- Header area end here -->
+
+
+    <main>
+
+      <!-- Product  area start here -->
+
+        <section>
+                <div class="product single-product">
+                        <div class="container">
+                                <div class="small_container">
+
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <img src="img/gallery-1.jpg" width="100%" id="main-img">
+
+                                            <div class="row">
+                                                    <div class="single-img-row">
+                                                        <img src="img/gallery-1.jpg" width="100%" class="small-img">
+                                                    </div>
+                                                    <div class="single-img-row">
+                                                        <img src="img/gallery-2.jpg" width="100%" class="small-img">
+                                                    </div>
+                                                    <div class="single-img-row">
+                                                        <img src="img/gallery-3.jpg" width="100%" class="small-img">
+                                                    </div>
+                                                    <div class="single-img-row">
+                                                        <img src="img/gallery-4.jpg" width="100%" class="small-img">
+                                                    </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-2">
+                                            <p>Home/Tshirt</p>
+                                            <h1>Red-T-Shirt</h1>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <h3>Price: 450 TK</h3> <br>
+
+                                            <select >
+                                                    <option value="">Select Size</option>
+                                                    <option value="">XXL</option>
+                                                    <option value="">XL</option>
+                                                    <option value="">Midium</option>
+                                                    <option value="">Small</option>
+                                                    
+                                            </select>
+
+                                            <br> <br>
+
+                                            <label > Quantity  :<input type="number" value="1" class="quantity"></label> 
+
+                                            <br>
+
+                                            <a href="" class="btn">Add To Cart; </a>
+                                            <br> <br>
+ 
+                                            <h3>Product Details</h3> <br>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, sunt amet earum ipsam placeat ab quas quos laborum possimus culpa eos temporibus itaque repellat nam rerum impedit cumque odit doloribus? Quae nesciunt exercitationem ex voluptatum, eaque quis porro repellendus corrupti odit! Fugiat voluptas facilis iusto eos nam quas ducimus vel!</p>
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row row-2">
+                                        <h2>Fretures products</h2>
+                                    <a href="product.html">View More</a>
+                                     </div>
+
+                                    
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img src="img/product-1.jpg" alt="">
+                                                <h4>Gents T-Shirt</h4>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-half"></i>
+                                                    <i class="far fa-star"></i>
+                                                </div>
+                                                <p>50$</p>
+                                        </div> 
+
+                                        <div class="col-4">
+                                            <img src="img/product-2.jpg" alt="">
+                                            <h4>Gents T-Shirt</h4>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <p>50$</p>
+                                        </div>   
+                                        
+                                        
+                                        <div class="col-4">
+                                            <img src="img/product-3.jpg" alt="">
+                                            <h4>Gents T-Shirt</h4>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            
+                                            </div>
+                                            <p>50$</p>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <img src="img/product-4.jpg" alt="">
+                                            <h4>Gents T-Shirt</h4>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <p>50$</p>
+                                        </div>
+                                    </div>
+
+         
+                                </div>               
+                        </div>
+            </div>
+    
+        </section>
+
+    </main>
+
+<!-- Footer section start here -->
+    <footer>
+        <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="footer-col-4">
+                            <h3>Download App</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, nulla.</p>
+                            <img src="img/play-store.png" alt="">
+                            <img src="img/app-store.png" alt="">
+                        </div>
+
+                        <div class="footer-col-4">
+                            <img src="img/logo.png" alt="">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex rem veniam accusantium ad illo ut excepturi commodi laboriosam, repellat, voluptatem in velit, officia non ratione.</p>
+                            
+                        </div>
+
+                        <div class="footer-col-4">
+                            <h3>contact us</h3>
+
+                            <a href="">Home</a> <br>
+                            <a href="">About</a> <br>
+                            <a href="">Contact</a><br>
+                            <a href="">Sevice</a><br>
+                            <a href="">Feedback</a><br>
+                           
+                           
+                            
+                           
+                            
+                        </div>
+
+                        <div class="footer-col-4">
+                            <h3>Follow us</h3>
+                            <a href="">LinkedIn</a> <br>
+                            <a href="">Facebook</a> <br>
+                            <a href="">Facebook</a> <br>
+                            <a href="">Twitter</a> <br>
+                            <a href="">Instagram</a><br>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+    </footer>
+
+    
+    <!-- javascript to togggle menu -->
+   
+    
+    <script>
+        var menuItems = document.getElementById("menuItems");
+        menuItems.style.maxHeight = '0px';
+        function toggleMenus(){
+            if( menuItems.style.maxHeight == '0px'){
+                menuItems.style.maxHeight = '250px';
+            }else{
+                menuItems.style.maxHeight = '0px';
+            }
+        }
+    </script>
+
+
+<!-- javascript for product image -->
+
+<script>
+    var mainImg = document.getElementById("main-img");
+    var smallImg = document.getElementsByClassName("small-img");
+
+    smallImg[0].onclick = function(){
+        mainImg.src =  smallImg[0].src
+    }
+    smallImg[1].onclick = function(){
+        mainImg.src =  smallImg[1].src
+    }
+    smallImg[2].onclick = function(){
+        mainImg.src =  smallImg[2].src
+    }
+
+    smallImg[3].onclick = function(){
+        mainImg.src =  smallImg[3].src
+    }
+
+
+
+
+  
+
+
+
+</script>
+
+</body>
+</html>

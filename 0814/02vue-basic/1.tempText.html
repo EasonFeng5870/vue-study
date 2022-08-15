@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板插值</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        #h1 {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="Application" style="text-align: center;">
+        <h1 v-once>这里是模板的内容:{{countHTML}}次点击</h1>
+        <h1 v-once>这里是模板的内容:<span v-html="countHTML"></span>次点击</h1>
+        <h1 v-bind:id="id1">这里是模板的内容:{{count + 10}}次点击</h1>
+        <button v-on:click="clickButton">按钮</button>
+    </div>
+    <script>
+        // 定义一个Vue组件, 名为App
+        const App = {
+            // 定义组件中的数据
+            data() {
+                return {
+                    count:0,
+                    countHTML:"<span style='color:red;'>0</span>",
+                    id1:"h1"
+                }
+            },
+            // 定义组件中的函数
+            methods: {
+                // 实现点击按钮的方法
+                clickButton() {
+                    this.count = this.count + 1
+                    this.id1 = ""
+                }
+            }
+        }
+        // 将Vue组件绑定到页面上id为Application的元素上
+        Vue.createApp(App).mount("#Application") 
+    </script>
+</body>
+</html>

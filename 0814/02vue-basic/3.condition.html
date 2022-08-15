@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="Application">
+        <h1 v-if="show">标题</h1>
+        <p v-else>如果不显示标题就显示段落</p>
+        <h1 v-if="mark == 100">满分</h1>
+        <h1 v-else-if="mark > 60">及格</h1>
+        <h1 v-else>不及格</h1>
+        <div v-if="show">
+            <p>内容</p>
+            <p>内容</p>
+            <p>内容</p>
+        </div>
+        <template v-if="show">
+            <p>内容</p>
+            <p>内容</p>
+            <p>内容</p>
+        </template>
+        <h1 v-if="show">v-if标题在这里</h1>
+        <h1 v-show="show">v-show标题在这里</h1>
+    </div>
+    <script>
+        // 定义一个Vue组件, 名为App
+        const App = {
+            data() {
+                return {
+                    show:false,
+                    mark:100
+                }
+            }
+        }
+        const vm = Vue.createApp(App).mount("#Application")
+        console.log(vm.$data.show)
+        console.log(vm.$data.mark)
+    </script>
+</body>
+</html>

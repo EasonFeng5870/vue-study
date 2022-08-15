@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>循环渲染</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="Application">
+        <ul>
+            <template v-for="(item,index) in handle(list)">
+                <div>{{index + "." + item.name}}</div>
+                <div>{{item.num}}</div>
+            </template>
+        </ul>
+        <ol>
+            <li v-for="(value,key,index) in preson" :key="index">
+                {{key}}:{{value}}
+            </li>
+        </ol>
+        <button @click="click">
+            逆序
+        </button>
+    </div>
+    <script>
+        // 定义一个Vue组件, 名为App
+        const App = {
+            data() {
+                return {
+                    list:[
+                        {
+                            name: "珲少",
+                            num: "151xxxxxxxx"
+                        },
+                        {
+                            name: "Jaki",
+                            num: "151xxxxxxxx"
+                        },
+                        {
+                            name: "Lucy",
+                            num: "151xxxxxxxx"
+                        },
+                        {
+                            name: "Monki",
+                            num: "151xxxxxxxx"
+                        },
+                        {
+                            name: "Bei",
+                            num: "151xxxxxxxx"
+                        }
+                    ],
+                    preson: {
+                        name: "珲少",
+                        age: "00",
+                        num: "151xxxxxxxx",
+                        emali: "xxxx@xx.com"
+                    }
+                }
+            },
+            methods: {
+                click() {
+                    this.list.reverse()
+                },
+                handle(l) {
+                    return l.filter(obj => obj.name != "珲少")
+                }
+            }
+        }
+        Vue.createApp(App).mount("#Application") 
+    </script>
+</body>
+</html>
