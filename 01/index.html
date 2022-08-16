@@ -21,7 +21,7 @@
                 <ul v-if="displaylevel2">
                     <li v-for="subc in c.subcategories" :key="subc.id" @click.stop="displayproducts=!displayproducts">{{subc.name}} | {{subc.description}}
                         <ul v-if="displayproducts">
-                            <li v-for="p in subc.products" :key="p.id" @click.stop="product = p; quantity = ''" @mouseenter="">
+                            <li v-for="p in subc.products" :key="p.id" @click.stop="product = p; quantity = ''; displaylevel1=false;" @mouseenter="">
                                 <span>{{p.name}}</span>
                             </li>
                         </ul>
