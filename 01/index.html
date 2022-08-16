@@ -12,16 +12,19 @@
 </head>
 <body>
 <div id="app">
-    <button>{{orderinprogress}}</button>
-    <div v-if="!orderinprogress" id="catalog">
-        <p @click="displaylevel1=!displaylevel1" @mouseenter>{{ catalog.name }}</p>
-        <div v-if="displaylevel1">
+    <button @click="viewwhat='catalog'" @mouseenter>Products</button>
+    <button @click="viewwhat='cart'">Cart({{cart.lineitems.length}})</button>
+    <button @click="viewwhat='orders'">Orders</button>
+    <button @click="viewwhat='help'">Help</button>
+    <button @click="viewwhat='login'">Login</button>
+    <div v-if="viewwhat==='catalog'" id="catalog">
+        <div>
             <ul>
             <li v-for="c in categories" :key="c.id" @click.stop="displaylevel2=!displaylevel2">{{c.name}} | {{c.description}}
                 <ul v-if="displaylevel2">
                     <li v-for="subc in c.subcategories" :key="subc.id" @click.stop="displayproducts=!displayproducts">{{subc.name}} | {{subc.description}}
                         <ul v-if="displayproducts">
-                            <li v-for="p in subc.products" :key="p.id" @click.stop="product = p; quantity = ''; displaylevel1=false;" @mouseenter="">
+                            <li v-for="p in subc.products" :key="p.id" @click.stop="product = p; quantity = ''; viewwhat='product'" @mouseenter="">
                                 <span>{{p.name}}</span>
                             </li>
                         </ul>
@@ -32,13 +35,17 @@
         </div>
     </div>
 
-    <div v-if="product !== '' && !orderinprogress" id="product">
+    <div v-if="viewwhat==='product'" id="product">
+        <p>
         {{product.name}} {{product.price}} per {{product.unit}}
         <input type="number" min="0" max="10" v-model="quantity" />
-        <button :disabled="quantity <= 0" @click="addToCart(product.id, quantity, product.unit, product.price)">Add {{quantity}} {{product.unit}} to cart</button>
+        <button :disabled="quantity <= 0" @click="viewwhat='home'; addToCart(product.id, quantity, product.unit, product.price)">
+            Add {{quantity}} {{product.unit}} to cart
+        </button>
+        </p>
     </div>
 
-    <div v-if="cart.lineitems.length > 0" id="cart">
+    <div v-if="viewwhat==='cart'" id="cart">
         <p>Shopping Cart</p>
         <ul>
             <li v-for="l in cart.lineitems" :key="l.id">
@@ -46,24 +53,23 @@
                 <button @click="removeFromCart(l)">X</button>
             </li>
         </ul>
-        Total: ${{cart.total}}
-        <button @click="orderinprogress=!orderinprogress; startOrder()">Check Out</button>
+        <button @click="viewwhat='checkout'; startOrder()">Check Out</button>
     </div>
 
-    <div v-if="tmporder.lineitems.length > 0" id="order">
+    <div v-if="viewwhat==='checkout'" id="order">
         <p>Order Details</p>
         <div id="orderitems">
             <ul>
                 <li v-for="l in tmporder.lineitems" :key="l.id">
                     Buy {{l.quantity}} {{l.unit}} of {{l.id}} priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
-                    <button @click="orderinprogress=!orderinprogress; removeFromOrder(l)">X</button>
+                    <button @click="removeFromOrder(l)">X</button>
                 </li>
             </ul>
 
         </div>
         <div id="address"></div>
         <div id="payinfo"></div>
-        <button @click="orderinprogress=!orderinprogress; cancelOrder()">Cancel</button>
+        <button @click="viewwhat='cart'; cancelOrder()">Cancel</button>
         <button>Place Order</button>
 
     </div>
@@ -77,9 +83,9 @@
         el : '#app',
         data: {
             catalog: catalog,
-            displaylevel1: false,
             displaylevel2: false,
             displayproducts: false,
+            viewwhat: 'home',
             cart: cart,
             tmporder: tmporder,
             orderinprogress: false,
@@ -87,14 +93,14 @@
             quantity: '',
             product: ''
         },
-        computed: {
-          carttotal() {
-            let t = 0;
-            cart.lineitems.forEach(function (l) { t += l.price * l.quantity} );
-            cart.total = t;
-            return t;
-          }
-        },
+        //computed: {
+        //  carttotal() {
+        //    let t = 0;
+        //    cart.lineitems.forEach(function (l) { t += l.price * l.quantity} );
+        //    cart.total = t;
+        //    return t;
+        //  }
+        //},
         //components: {
         //    Product
         //},
@@ -109,10 +115,12 @@
               cart.total -= lineitem.quantity * lineitem.price;
             },
             startOrder() {
+              viewwhat = 'checkout';
               tmporder.lineitems = [...cart.lineitems];
               cart.lineitems = [];
             },
             cancelOrder() {
+              viewwhat = 'cart';
               cart.lineitems = [...tmporder.lineitems];
               tmporder.lineitems = [];
             },
