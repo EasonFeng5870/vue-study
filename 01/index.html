@@ -12,12 +12,14 @@
 </head>
 <body>
 <div id="app">
+    <button @click="viewwhat='home'" @mouseenter>Home</button>
     <button @click="viewwhat='catalog'" @mouseenter>Products</button>
     <button @click="viewwhat='cart'">Cart({{cart.lineitems.length}})</button>
     <button @click="viewwhat='orders'">Orders</button>
     <button @click="viewwhat='help'">Help</button>
     <button @click="viewwhat='login'">Login</button>
-    <div v-if="viewwhat='home'" id="home"></div>
+
+    <div v-if="viewwhat==='home'" id="home"></div>
 
     <div v-if="viewwhat==='catalog'" id="catalog">
         <div>
@@ -94,7 +96,7 @@
         <button @click="placeOrder()">Place Order</button>
     </div>
 
-    <div v-if="viewwhat==='order'"></div>
+    <div v-if="viewwhat==='order'" id="order"></div>
 
     <div v-if="viewwhat==='orders'" id="orders">
         <p>My Orders</p>
@@ -108,6 +110,10 @@
             </li></ul>
         </div>
     </div>
+
+    <div v-if="viewwhat==='help'" id="help"></div>
+
+    <div v-if="viewwhat==='login'" id="login"></div>
 </div>
 
 <script src="./catalog.js"></script>
