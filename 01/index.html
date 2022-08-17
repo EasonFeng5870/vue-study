@@ -96,7 +96,14 @@
         <button @click="placeOrder()">Place Order</button>
     </div>
 
-    <div v-if="viewwhat==='order'" id="order"></div>
+    <div v-if="viewwhat==='order'" id="order">
+        <p>Order {{ordertoview.id}}</p>
+        <ul>
+            <li v-for="l in ordertoview.lineitems" :key="l.id">
+            {{l.quantity}} {{l.unit}} of {{l.id}} priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
+            </li>
+        </ul>
+    </div>
 
     <div v-if="viewwhat==='orders'" id="orders">
         <p>My Orders</p>
@@ -131,6 +138,7 @@
             cart: cart,
             orders: [],
             tmporder: tmporder,
+            ordertoview: {},
             categories: catalog.productcategories,
             quantity: '',
             product: ''
@@ -159,10 +167,13 @@
               this.tmporder.lineitems.splice(this.tmporder.lineitems.indexOf(lineitem), 1);
             },
             placeOrder() {
-              this.viewwhat = 'orders';
+              this.viewwhat = 'order';
               this.tmporder.id++;
+              this.ordertoview = this.tmporder;
               this.orders.push(this.tmporder);
-              this.tmporder = {id: this.tmporder.id, lineitems: [], address: {}, payment: {}, tax: 0, total: 0 };
+              let addr = this.tmporder.address;
+              let pay = this.tmporder.payment;
+              this.tmporder = {id: this.tmporder.id, lineitems: [], address: addr, payment: pay, tax: 0, total: 0 };
             }
         }
     });
