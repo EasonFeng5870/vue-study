@@ -43,7 +43,8 @@
         <p>
         {{product.name}} {{product.price}} per {{product.unit}}
         <input type="number" min="0" max="10" v-model="quantity" />
-        <button :disabled="quantity <= 0" @click="viewwhat='home'; addToCart(product.id, quantity, product.unit, product.price)">
+        <button :disabled="quantity <= 0"
+                @click="viewwhat='home'; addToCart(product.id, product, quantity, product.unit, product.price)">
             Add {{quantity}} {{product.unit}} to cart
         </button>
         </p>
@@ -53,11 +54,11 @@
         <p>Shopping Cart</p>
         <ul>
             <li v-for="l in cart.lineitems" :key="l.id">
-                Buy {{l.quantity}} {{l.unit}} of {{l.id}} priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
+                {{l.quantity}} {{l.unit}} of <span @click="product=l.product; viewwhat='product'">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
                 <button @click="removeFromCart(l)">X</button>
             </li>
         </ul>
-        <button @click="startOrder()">Check Out</button>
+        <button :disabled="cart.lineitems.length <= 0" @click="startOrder()">Check Out</button>
     </div>
 
     <div v-if="viewwhat==='checkout'" id="checkout">
@@ -65,7 +66,7 @@
         <div id="orderitems">
             <ul>
                 <li v-for="l in tmporder.lineitems" :key="l.id">
-                    Buy {{l.quantity}} {{l.unit}} of {{l.id}} priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
+                    Buy {{l.quantity}} {{l.unit}} of <span @click="product=l.product; viewwhat='product'">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
                     <button @click="removeFromOrder(l)">X</button>
                 </li>
             </ul>
@@ -100,7 +101,7 @@
         <p>Order {{ordertoview.id}}</p>
         <ul>
             <li v-for="l in ordertoview.lineitems" :key="l.id">
-            {{l.quantity}} {{l.unit}} of {{l.id}} priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
+            {{l.quantity}} {{l.unit}} of <span @click="product=l.product; viewwhat='product'">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
             </li>
         </ul>
     </div>
@@ -108,7 +109,7 @@
     <div v-if="viewwhat==='orders'" id="orders">
         <p>My Orders</p>
         <div id="orderlist">
-            <ul><li v-for="o in orders" :key="o.id">
+            <ul><li v-for="o in orders" :key="o.id" @click="ordertoview=o; viewwhat='order'">
                 Order ID: {{o.id}}<br>
                 Address: {{o.address}}<br>
                 Order Amount: <br>
@@ -144,8 +145,8 @@
             product: ''
         },
         methods: {
-            addToCart(pid, quant, unit, price, amount) {
-                let lineitem = {id: pid, quantity: quant, unit: unit, price: price, amount: quant * price};
+            addToCart(pid, p, quant, unit, price, amount) {
+                let lineitem = {id: pid, product: p, quantity: quant, unit: unit, price: price, amount: quant * price};
                 this.cart.lineitems.push(lineitem);
                 this.cart.total += quant * price;
             },
