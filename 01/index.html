@@ -19,16 +19,17 @@
     <button @click="viewwhat='help'">Help</button>
     <button @click="viewwhat='login'">Login</button>
 
-    <div v-if="viewwhat==='home'" id="home"></div>
+    <div v-if="viewwhat==='home'" id="home"><h1>Home Page</h1></div>
 
     <div v-if="viewwhat==='catalog'" id="catalog">
+        <h1>Products</h1>
         <div>
             <ul>
             <li v-for="c in categories" :key="c.id" @click.stop="displaylevel2=!displaylevel2">{{c.name}} | {{c.description}}
                 <ul v-if="displaylevel2">
                     <li v-for="subc in c.subcategories" :key="subc.id" @click.stop="displayproducts=!displayproducts">{{subc.name}} | {{subc.description}}
                         <ul v-if="displayproducts">
-                            <li v-for="p in subc.products" :key="p.id" @click.stop="product = p; quantity = ''; viewwhat='product'" @mouseenter="">
+                            <li v-for="p in subc.products" :key="p.id" @click.stop="showProduct(p)" @mouseenter="">
                                 <span>{{p.name}}</span>
                             </li>
                         </ul>
@@ -51,10 +52,10 @@
     </div>
 
     <div v-if="viewwhat==='cart'" id="cart">
-        <p>Shopping Cart</p>
+        <h1>Shopping Cart</h1>
         <ul>
             <li v-for="l in cart.lineitems" :key="l.id">
-                {{l.quantity}} {{l.unit}} of <span @click="product=l.product; viewwhat='product'">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
+                {{l.quantity}} {{l.unit}} of <span @click="showProduct(l.product)">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
                 <button @click="removeFromCart(l)">X</button>
             </li>
         </ul>
@@ -66,7 +67,7 @@
         <div id="orderitems">
             <ul>
                 <li v-for="l in tmporder.lineitems" :key="l.id">
-                    Buy {{l.quantity}} {{l.unit}} of <span @click="product=l.product; viewwhat='product'">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
+                    Buy {{l.quantity}} {{l.unit}} of <span @click="showProduct(l.product)">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
                     <button @click="removeFromOrder(l)">X</button>
                 </li>
             </ul>
@@ -101,13 +102,13 @@
         <p>Order {{ordertoview.id}}</p>
         <ul>
             <li v-for="l in ordertoview.lineitems" :key="l.id">
-            {{l.quantity}} {{l.unit}} of <span @click="product=l.product; viewwhat='product'">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
+            {{l.quantity}} {{l.unit}} of <span @click="showProduct(l.product)">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
             </li>
         </ul>
     </div>
 
     <div v-if="viewwhat==='orders'" id="orders">
-        <p>My Orders</p>
+        <h1>My Orders</h1>
         <div id="orderlist">
             <ul><li v-for="o in orders" :key="o.id" @click="ordertoview=o; viewwhat='order'">
                 Order ID: {{o.id}}<br>
@@ -132,19 +133,23 @@
         el : '#app',
         data: {
             viewwhat: 'home',
-            displaylevel2: false,
-            displayproducts: false,
-            orderinprogress: false,
+            displaylevel2: true,
+            displayproducts: true,
             catalog: catalog,
-            cart: cart,
-            orders: [],
-            tmporder: tmporder,
-            ordertoview: {},
             categories: catalog.productcategories,
+            cart: cart,
+            tmporder: tmporder,
+            orders: [],
+            ordertoview: {},
             quantity: '',
             product: ''
         },
         methods: {
+            showProduct(p) {
+                this.viewwhat = 'product';
+                this.product = p;
+                this.quantity = 0;
+            },
             addToCart(pid, p, quant, unit, price, amount) {
                 let lineitem = {id: pid, product: p, quantity: quant, unit: unit, price: price, amount: quant * price};
                 this.cart.lineitems.push(lineitem);
