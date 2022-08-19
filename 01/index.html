@@ -128,7 +128,13 @@
 <script src="./catalog.js"></script>
 <script>
     let cart = { lineitems: [], total: 0 };
-    let tmporder = {id:0, lineitems: [], address: {line1:'', line2:'', city:'', state:'', zipcode:''}, payment: {}, tax: 0, total: 0};
+    let tmporder = {
+        id:0,
+        lineitems: [],
+        address: {line1:'', line2:'', city:'', state:'', zipcode:''},
+        payment: {cardnumber:'', cardholder:'', expiredate:'', address:'', securecode:''},
+        tax: 0,
+        total: 0};
     let app = new Vue({
         el : '#app',
         data: {
@@ -177,8 +183,8 @@
               this.tmporder.id++;
               this.ordertoview = this.tmporder;
               this.orders.push(this.tmporder);
-              let addr = this.tmporder.address;
-              let pay = this.tmporder.payment;
+              let addr = {...this.tmporder.address};
+              let pay = {...this.tmporder.payment};
               this.tmporder = {id: this.tmporder.id, lineitems: [], address: addr, payment: pay, tax: 0, total: 0 };
             }
         }
