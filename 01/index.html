@@ -41,6 +41,7 @@
     </div>
 
     <div v-if="viewwhat==='product'" id="product">
+        <h1>Product Details</h1>
         <p>
         {{product.name}} {{product.price}} per {{product.unit}}
         <input type="number" min="0" max="10" v-model="quantity" />
@@ -63,7 +64,7 @@
     </div>
 
     <div v-if="viewwhat==='checkout'" id="checkout">
-        <p>Order Details</p>
+        <h1>Check Out</h1>
         <div id="orderitems">
             <ul>
                 <li v-for="l in tmporder.lineitems" :key="l.id">
@@ -99,7 +100,7 @@
     </div>
 
     <div v-if="viewwhat==='order'" id="order">
-        <p>Order {{ordertoview.id}}</p>
+        <h1>Order #{{ordertoview.id}}</h1>
         <ul>
             <li v-for="l in ordertoview.lineitems" :key="l.id">
             {{l.quantity}} {{l.unit}} of <span @click="showProduct(l.product)">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
