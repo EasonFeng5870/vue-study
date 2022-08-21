@@ -1,0 +1,19 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /seafood
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:13306/seafood?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: seafood
+    password: fys`372427166
+
+logging:
+  level:
+    root: debug
+
+
+
+
