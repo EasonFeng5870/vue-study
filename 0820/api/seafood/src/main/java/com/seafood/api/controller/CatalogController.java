@@ -30,7 +30,7 @@ public class CatalogController extends BaseController {
 	@GetMapping(value = "/list")
 	public String catalogList(
 			@RequestParam(value = "catalogId", defaultValue = "0") int catalogId) {
-		return gson.toJson(catalogService.getList(1));
+		return gson.toJson(catalogService.getList(catalogId));
 	}
 
 	@GetMapping(value = "/listDemo")

@@ -19,7 +19,8 @@
             }
         },
         mounted () {
-            this.getPostCatalogs();
+            // this.getPostCatalogs();
+            this.getCatalogs();
         },
         methods: {
             getCatalogs() {
@@ -34,7 +35,7 @@
                 let requestObj = {catalogId: 1}
                 axios
                     .post('http://localhost:8088/seafood/catalog/postlist', requestObj)
-                    .then(response => (this.info = response))
+                    .then(response => (this.info = response.data))
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
