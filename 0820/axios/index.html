@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue-axios</title>
+    <script src="vue.global.js"></script>
+    <script src="axios0.27.2.min.js"></script>
+</head>
+<body>
+<div id="app">
+    {{ info }}
+</div>
+
+<script>
+    const app = {
+        data() {
+            return {
+                info: ''
+            }
+        },
+        mounted () {
+            this.getPostCatalogs();
+        },
+        methods: {
+            getCatalogs() {
+                axios.get('http://localhost:8088/seafood/catalog/list?catalogId=1')
+                // axios.get('http://localhost:8088/seafood/hello')
+                    .then(response => (this.info = response.data))
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            getPostCatalogs() {
+                let requestObj = {catalogId: 1}
+                axios
+                    .post('http://localhost:8088/seafood/catalog/postlist', requestObj)
+                    .then(response => (this.info = response))
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            }
+        }
+    }
+
+    Vue.createApp(app).mount('#app')
+</script>
+</body>
+</html>
