@@ -11,24 +11,24 @@ public class ResponseData<T> implements Serializable {
 
 	private static final long serialVersionUID = 12345678998745632L;
 
-	private T object;
+	private T data;
 
 	private int code;
 
 	private String msg;
 
-	public ResponseData(T object, int code, String msg) {
-		this.object = object;
+	public ResponseData(T data, int code, String msg) {
+		this.data = data;
 		this.code = code;
 		this.msg = msg;
 	}
 
-	T getObject() {
-		return object;
+	public T getData() {
+		return data;
 	}
 
-	void setObject(T object) {
-		this.object = object;
+	public void setData(T data) {
+		this.data = data;
 	}
 
 	int getCode() {

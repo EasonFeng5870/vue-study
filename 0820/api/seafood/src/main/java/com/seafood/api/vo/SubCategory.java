@@ -5,9 +5,9 @@ import java.util.List;
 /**
  *
  * @author eason
- * @date 2022/08/21
+ * @date 2022/08/25
  **/
-public class ProductCatagory {
+public class SubCategory {
 
 	private int id;
 
@@ -15,7 +15,7 @@ public class ProductCatagory {
 
 	private String description;
 
-	private List<ProductCatagory> subcategories;
+	private List<Product> products;
 
 	public int getId() {
 		return id;
@@ -41,11 +41,11 @@ public class ProductCatagory {
 		this.description = description;
 	}
 
-	public List<ProductCatagory> getSubcategories() {
-		return subcategories;
+	public List<Product> getProducts() {
+		return products;
 	}
 
-	public void setSubcategories(List<ProductCatagory> subcategories) {
-		this.subcategories = subcategories;
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 }
