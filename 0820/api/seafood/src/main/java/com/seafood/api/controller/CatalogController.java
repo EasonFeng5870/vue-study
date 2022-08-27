@@ -4,15 +4,12 @@ import java.util.List;
 
 import com.seafood.api.vo.Catalog;
 import com.seafood.api.service.CatalogService;
-import com.seafood.api.vo.ResponseData;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,13 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2022/08/21
  **/
 @RestController
-@RequestMapping("/catalog")
 public class CatalogController extends BaseController {
 
 	@Autowired
 	private CatalogService catalogService;
 
-	@GetMapping(value = "/list")
+	@GetMapping(value = "/catalog")
 	public String catalogList(
 			@RequestParam(value = "catalogId", defaultValue = "0") int catalogId) {
 		return gson.toJson(catalogService.getList(catalogId));

@@ -15,7 +15,7 @@ public class Catalog {
 
 	private String desc;
 
-	private List<ProductCatagory> productCatagories;
+	private List<ProductCategory> productCategories;
 
 	public int getId() {
 		return id;
@@ -41,11 +41,11 @@ public class Catalog {
 		this.desc = desc;
 	}
 
-	public List<ProductCatagory> getProductCatagories() {
-		return productCatagories;
+	public List<ProductCategory> getProductCategories() {
+		return productCategories;
 	}
 
-	public void setProductCatagories(List<ProductCatagory> productCatagories) {
-		this.productCatagories = productCatagories;
+	public void setProductCategories(List<ProductCategory> productCategories) {
+		this.productCategories = productCategories;
 	}
 }
