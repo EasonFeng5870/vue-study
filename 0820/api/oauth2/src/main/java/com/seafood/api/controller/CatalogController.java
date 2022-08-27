@@ -1,8 +1,9 @@
 package com.seafood.api.controller;
 
-import com.seafood.api.vo.CatalogVo;
+import java.util.List;
+
+import com.seafood.api.vo.Catalog;
 import com.seafood.api.service.CatalogService;
-import com.seafood.api.vo.ResponseData;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +24,9 @@ public class CatalogController extends BaseController {
 	private CatalogService catalogService;
 
 	@GetMapping(value = "/catalog")
-	public ResponseData<CatalogVo> catalogList(
-			@RequestParam(value = "catalogId", defaultValue = "1") int catalogId) {
-		return catalogService.getList(catalogId);
+	public String catalogList(
+			@RequestParam(value = "catalogId", defaultValue = "0") int catalogId) {
+		return gson.toJson(catalogService.getList(catalogId));
 	}
 
 	@GetMapping(value = "/listDemo")

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js" ></script>
+    <style>
+    span:hover {
+    background: lightgreen;
+    }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="viewwhat='home'" @mouseenter>Home</button>
+    <button @click="viewwhat='catalogVo'" @mouseenter>Products</button>
+    <button @click="viewwhat='cart'">Cart({{cart.lineitems.length}})</button>
+    <button @click="viewwhat='orders'">Orders</button>
+    <button @click="viewwhat='help'">Help</button>
+    <button @click="viewwhat='login'">Login</button>
+
+    <div v-if="viewwhat==='home'" id="home"><h1>Home Page</h1></div>
+
+    <div v-if="viewwhat==='catalogVo'" id="catalogVo">
+        <h1>Products</h1>
+        <div>
+            <ul>
+            <li v-for="c in categories" :key="c.id" @click.stop="displaylevel2=!displaylevel2">{{c.name}} | {{c.description}}
+                <ul v-if="displaylevel2">
+                    <li v-for="subc in c.subcategories" :key="subc.id" @click.stop="displayproducts=!displayproducts">{{subc.name}} | {{subc.description}}
+                        <ul v-if="displayproducts">
+                            <li v-for="p in subc.products" :key="p.id" @click.stop="showProduct(p)" @mouseenter="">
+                                <span>{{p.name}}</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        </div>
+    </div>
+
+    <div v-if="viewwhat==='product'" id="product">
+        <h1>Product Details</h1>
+        <p>
+        {{product.name}} {{product.price}} per {{product.unit}}
+        <input type="number" min="0" max="10" v-model="quantity" />
+        <button :disabled="quantity <= 0"
+                @click="viewwhat='home'; addToCart(product.id, product, quantity, product.unit, product.price)">
+            Add {{quantity}} {{product.unit}} to cart
+        </button>
+        </p>
+    </div>
+
+    <div v-if="viewwhat==='cart'" id="cart">
+        <h1>Shopping Cart</h1>
+        <ul>
+            <li v-for="l in cart.lineitems" :key="l.id">
+                {{l.quantity}} {{l.unit}} of <span @click="showProduct(l.product)">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
+                <button @click="removeFromCart(l)">X</button>
+            </li>
+        </ul>
+        <button :disabled="cart.lineitems.length <= 0" @click="startOrder()">Check Out</button>
+    </div>
+
+    <div v-if="viewwhat==='checkout'" id="checkout">
+        <h1>Check Out</h1>
+        <div id="orderitems">
+            <ul>
+                <li v-for="l in tmporder.lineitems" :key="l.id">
+                    Buy {{l.quantity}} {{l.unit}} of <span @click="showProduct(l.product)">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
+                    <button @click="removeFromOrder(l)">X</button>
+                </li>
+            </ul>
+
+        </div>
+        <div id="address">
+            <table>
+                <tr>
+                    <td><label for="addrline1">Line 1: </label></td>
+                    <td colspan="5"><input id="addrline1" type="text" v-model="tmporder.address.line1" size="40"/></td>
+                </tr>
+                <tr>
+                    <td><label for="addrline2">Line 2: </label></td>
+                    <td colspan="5"><input id="addrline2 "type="text" v-model="tmporder.address.line2" size="40"/></td>
+                </tr>
+                <tr>
+                    <td><label for="addrcity">City: </label></td>
+                    <td><input id="addrcity" type="text" v-model="tmporder.address.city" size="15" /></td>
+                    <td><label for="addrstate">State: </label></td>
+                    <td><input id="addrstate" type="text" v-model="tmporder.address.state" size="5"/></td>
+                    <td><label for="addrzipcode">Zipcode: </label></td>
+                    <td><input id="addrzipcode" type="text" v-model="tmporder.address.zipcode" size="10" /></td>
+                </tr>
+            </table>
+        </div>
+        <div id="payinfo"></div>
+        <button @click="cancelOrder()">Cancel</button>
+        <button @click="placeOrder()">Place Order</button>
+    </div>
+
+    <div v-if="viewwhat==='order'" id="order">
+        <h1>Order #{{ordertoview.id}}</h1>
+        <ul>
+            <li v-for="l in ordertoview.lineitems" :key="l.id">
+            {{l.quantity}} {{l.unit}} of <span @click="showProduct(l.product)">{{l.product.name}}</span> priced at ${{l.price}} per {{l.unit}} in the amount of ${{l.amount}}
+            </li>
+        </ul>
+    </div>
+
+    <div v-if="viewwhat==='orders'" id="orders">
+        <h1>My Orders</h1>
+        <div id="orderlist">
+            <ul><li v-for="o in orders" :key="o.id" @click="ordertoview=o; viewwhat='order'">
+                Order ID: {{o.id}}<br>
+                Address: {{o.address}}<br>
+                Order Amount: <br>
+                Tax: <br>
+                Total Amount: <br>
+            </li></ul>
+        </div>
+    </div>
+
+    <div v-if="viewwhat==='help'" id="help"></div>
+
+    <div v-if="viewwhat==='login'" id="login">
+        <p>Login With</p>
+        <a href="http://localhost:8080/oauth2/authorization/github">github</a>
+        <a href="http://localhost:8080/oauth2/authorization/google">google</a>
+    </div>
+</div>
+
+<script src="js/catalogVo.js"></script>
+<script>
+    let cart = { lineitems: [], total: 0 };
+    let tmporder = {
+        id:0,
+        lineitems: [],
+        address: {line1:'', line2:'', city:'', state:'', zipcode:''},
+        payment: {cardnumber:'', cardholder:'', expiredate:'', address:'', securecode:''},
+        tax: 0,
+        total: 0};
+    let app = new Vue({
+        el : '#app',
+        data: {
+            viewwhat: 'home',
+            displaylevel2: true,
+            displayproducts: true,
+            catalogVo: catalogVo,
+            categories: catalogVo.productcategories,
+            cart: cart,
+            tmporder: tmporder,
+            orders: [],
+            ordertoview: {},
+            quantity: '',
+            product: ''
+        },
+        methods: {
+            showProduct(p) {
+                this.viewwhat = 'product';
+                this.product = p;
+                this.quantity = 0;
+            },
+            addToCart(pid, p, quant, unit, price, amount) {
+                let lineitem = {id: pid, product: p, quantity: quant, unit: unit, price: price, amount: quant * price};
+                this.cart.lineitems.push(lineitem);
+                this.cart.total += quant * price;
+            },
+            removeFromCart(lineitem) {
+              this.cart.lineitems.splice(this.cart.lineitems.indexOf(lineitem), 1);
+              this.cart.total -= this.lineitem.quantity * this.lineitem.price;
+            },
+            startOrder() {
+              this.viewwhat = 'checkout';
+              this.tmporder.lineitems = this.tmporder.lineitems.concat(this.cart.lineitems);
+              this.cart.lineitems = [];
+            },
+            cancelOrder() {
+              this.viewwhat = 'cart';
+              this.cart.lineitems = this.cart.lineitems.concat(this.tmporder.lineitems);
+              this.tmporder.lineitems = [];
+            },
+            removeFromOrder(lineitem) {
+              this.tmporder.lineitems.splice(this.tmporder.lineitems.indexOf(lineitem), 1);
+            },
+            placeOrder() {
+              this.viewwhat = 'order';
+              this.tmporder.id++;
+              this.ordertoview = this.tmporder;
+              this.orders.push(this.tmporder);
+              let addr = {...this.tmporder.address};
+              let pay = {...this.tmporder.payment};
+              this.tmporder = {id: this.tmporder.id, lineitems: [], address: addr, payment: pay, tax: 0, total: 0 };
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -3,15 +3,12 @@ package com.seafood.api.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.seafood.api.entity.Catalog;
-import com.seafood.api.mapper.CatalogMapper;
-import com.seafood.api.vo.CatalogVo;
+import com.seafood.api.vo.Catalog;
 import com.seafood.api.vo.Product;
 import com.seafood.api.vo.ProductCategory;
 import com.seafood.api.vo.ResponseData;
 import com.seafood.api.vo.SubCategory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,15 +19,13 @@ import org.springframework.stereotype.Service;
 @Service("catalogService")
 public class CatalogService {
 
-	@Autowired
-	private CatalogMapper catalogMapper;
-
 	/**
 	 *  get catalog info by catalogId
-	 * @param catalogId catalog id, default is 1
+	 * @param catalogId
 	 * @return ResponseData<Catalog>
 	 */
-	public ResponseData<CatalogVo> getList(int catalogId) {
+	public ResponseData<Catalog> getList(int catalogId) {
+
 		Product product = new Product();
 		product.setId(10101);
 		product.setName("Shark");
@@ -59,12 +54,11 @@ public class CatalogService {
 		List<ProductCategory> productCategories = new ArrayList<>();
 		productCategories.add(productCategory);
 
-		Catalog catalog = catalogMapper.selectById(catalogId);
-		CatalogVo catalogVo = new CatalogVo();
-		catalogVo.setId(catalog.getId());
-		catalogVo.setName(catalog.getName());
-		catalogVo.setDesc(catalog.getShortDesc());
-		catalogVo.setProductCategories(productCategories);
-		return new ResponseData<CatalogVo>(catalogVo, 200, "成功");
+		Catalog catalog = new Catalog();
+		catalog.setId(1);
+		catalog.setName("Seafood");
+		catalog.setDesc("Delicious seafood direct to your home");
+		catalog.setProductCategories(productCategories);
+		return new ResponseData<Catalog>(catalog, 200, "成功");
 	}
 }

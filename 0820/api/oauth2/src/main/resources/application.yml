@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:13306/seafood?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: seafood
+    password: fys`372427166
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: d3d6e2d89316ed982ea3
+            client-secret: dfcad223f6aa073f34f62c5f554ceb1a3ce27e30
+#            redirectUri: http://localhost:8080/rest/login
+          google:
+            client-id: 195066099347-g3opjvnac6e4dvndk3o5d3qnnk5ce437.apps.googleusercontent.com
+            client-secret: qaNIJA1ZmRAjbSGgoRbf_Hy_
+logging:
+  level:
+    root: debug
+
+
+
+
