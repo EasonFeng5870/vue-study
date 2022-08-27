@@ -1,6 +1,7 @@
 <script>
-import Catalog from './components/Catalog.vue'
-import Product from './components/Product.vue'
+import Catalog from './components/Catalog.vue';
+import Product from './components/Product.vue';
+import Cart from './components/Cart.vue';
 
 let cart = {
     lineitems: [],
@@ -26,16 +27,17 @@ export default {
     };
   },
   components: {
-  Product,
-  Catalog
-  },
+    Product,
+    Catalog,
+    Cart
+},
   methods: {
     productSelected(p) {
       this.viewwhat = "product";
       this.productunderview = p;
     },
     addToCart(p, q) {
-      let lineitem = {p, q};
+      let lineitem = {product: p, quantity: q};
       this.cart.lineitems.push(lineitem);
       this.viewwhat = 'home';
     }
@@ -61,6 +63,10 @@ export default {
 
     <div v-if="viewwhat=='product'">
       <Product :product="this.productunderview" @add-to-cart="addToCart"></Product>
+    </div>
+
+    <div v-if="viewwhat=='cart'">
+      <Cart :cart="this.cart"></Cart>
     </div>
   </main>
 </template>
