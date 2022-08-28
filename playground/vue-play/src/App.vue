@@ -3,10 +3,6 @@ import Catalog from './components/Catalog.vue';
 import Product from './components/Product.vue';
 import Cart from './components/Cart.vue';
 
-let cart = {
-    lineitems: [],
-    total: 0
-};
 let tmporder = {
     lineitems: [],
     address: null,
@@ -21,7 +17,7 @@ export default {
     return {
       viewwhat: "home",
       productunderview: '',
-      cart: cart,
+      cart: { lineitems: [], total: 0 },
       tmporder: tmporder,
       quant: 0
     };
