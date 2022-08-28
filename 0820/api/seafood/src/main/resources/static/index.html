@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="./js/vue.js" ></script>
+    <script src="./js/vue3.2.36.global.js" ></script>
     <style>
         span:hover {
             background: lightgreen;
@@ -126,6 +126,7 @@
     <div v-if="viewwhat==='login'" id="login">
         <p>Login With</p>
         <a href="oauth2/authorization/github">github</a>
+        <br/>
         <a href="oauth2/authorization/google">google</a>
     </div>
 </div>
@@ -140,20 +141,21 @@
         payment: {cardnumber:'', cardholder:'', expiredate:'', address:'', securecode:''},
         tax: 0,
         total: 0};
-    let app = new Vue({
-        el : '#app',
-        data: {
-            viewwhat: 'home',
-            displaylevel2: true,
-            displayproducts: true,
-            catalog: catalog,
-            categories: catalog.productcategories,
-            cart: cart,
-            tmporder: tmporder,
-            orders: [],
-            ordertoview: {},
-            quantity: '',
-            product: ''
+    let vueConfig = {
+        data() {
+            return {
+                viewwhat: 'home',
+                displaylevel2: true,
+                displayproducts: true,
+                catalog: catalog,
+                categories: catalog.productcategories,
+                cart: cart,
+                tmporder: tmporder,
+                orders: [],
+                ordertoview: {},
+                quantity: '',
+                product: ''
+            }
         },
         methods: {
             showProduct(p) {
@@ -193,8 +195,9 @@
                 this.tmporder = {id: this.tmporder.id, lineitems: [], address: addr, payment: pay, tax: 0, total: 0 };
             }
         }
-    });
-
+    }
+    let app = Vue.createApp(vueConfig);
+    app.mount("#app");
 </script>
 </body>
 </html>
