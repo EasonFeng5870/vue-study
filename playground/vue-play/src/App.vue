@@ -2,6 +2,8 @@
 import Catalog from './components/Catalog.vue';
 import Product from './components/Product.vue';
 import Cart from './components/Cart.vue';
+import Order from './components/Order.vue';
+import OrderList from './components/OrderList.vue';
 
 let tmporder = {
     orderid: 0,
@@ -27,8 +29,10 @@ export default {
   components: {
     Product,
     Catalog,
-    Cart
-  },
+    Cart,
+    Order,
+    OrderList
+},
   methods: {
     productSelected(p) {
       this.viewwhat = "product";
@@ -90,7 +94,7 @@ export default {
     </div>
 
     <div v-if="viewwhat=='order'">
-      <Order ></Order>
+      <Order></Order>
     </div>
   </main>
 </template>
