@@ -30,7 +30,7 @@ export default {
     Product,
     Catalog,
     Cart
-},
+  },
   methods: {
     productSelected(p) {
       this.viewwhat = "product";
@@ -41,6 +41,20 @@ export default {
       this.cart.lineitems.push(lineitem);
       this.viewwhat = 'home';
     }
+  },
+  watch: {
+      cart: {
+          handler() {
+              console.log('Cart Line Items changed!');
+              localStorage.setItem('cart', JSON.stringify(this.cart));
+          },
+          deep: true,
+      }
+  },
+  mounted() {
+    console.log('App Mounted');
+    if (localStorage.getItem('cart')) 
+        this.cart = JSON.parse(localStorage.getItem('cart'));
   }
 }
 
