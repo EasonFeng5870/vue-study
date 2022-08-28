@@ -13,6 +13,7 @@ export default {
 </script>
 
 <template>
+  <h1>Product Details</h1>
   <p>
     <!--img :src="product.imageurl" :alt="product.desc" width="20" height="20"/-->
     {{ product.id }} - {{ product.name }}
