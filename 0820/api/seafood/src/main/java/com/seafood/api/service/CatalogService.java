@@ -6,13 +6,16 @@ import java.util.List;
 import com.seafood.api.entity.Catalog;
 import com.seafood.api.mapper.CatalogMapper;
 import com.seafood.api.vo.CatalogVo;
-import com.seafood.api.vo.Product;
 import com.seafood.api.vo.ProductCategory;
+import com.seafood.api.vo.ProductVo;
 import com.seafood.api.vo.ResponseData;
 import com.seafood.api.vo.SubCategory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.seafood.api.utils.Constants.MESSAGE;
+import static com.seafood.api.utils.Constants.OK;
 
 /**
  *
@@ -25,21 +28,17 @@ public class CatalogService {
 	@Autowired
 	private CatalogMapper catalogMapper;
 
+	@Autowired
+	private ProductService productService;
+
 	/**
 	 *  get catalog info by catalogId
 	 * @param catalogId catalog id, default is 1
 	 * @return ResponseData<Catalog>
 	 */
-	public ResponseData<CatalogVo> getList(int catalogId) {
-		Product product = new Product();
-		product.setId(10101);
-		product.setName("Shark");
-		product.setPrice(8.99);
-		product.setUnit("lb");
-		product.setInventory(2000);
+	public ResponseData<CatalogVo> getList(long catalogId) {
 
-		List<Product> products = new ArrayList<>();
-		products.add(product);
+		List<ProductVo> products = productService.getAllProductsByCatalogId(catalogId);
 
 		SubCategory subCategory = new SubCategory();
 		subCategory.setId(101);
@@ -64,7 +63,9 @@ public class CatalogService {
 		catalogVo.setId(catalog.getId());
 		catalogVo.setName(catalog.getName());
 		catalogVo.setDesc(catalog.getShortDesc());
+
+
 		catalogVo.setProductCategories(productCategories);
-		return new ResponseData<CatalogVo>(catalogVo, 200, "成功");
+		return new ResponseData<CatalogVo>(catalogVo, OK, MESSAGE);
 	}
 }

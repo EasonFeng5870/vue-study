@@ -92,8 +92,4 @@ public class CatalogController extends BaseController {
 				+ "}";
 	}
 
-	@PostMapping("/postlist")
-	public String catalogPostList(@RequestBody(required = false) String reqStr) {
-		return reqStr;
-	}
 }

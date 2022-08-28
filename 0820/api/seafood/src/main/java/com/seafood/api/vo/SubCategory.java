@@ -15,7 +15,7 @@ public class SubCategory {
 
 	private String description;
 
-	private List<Product> products;
+	private List<ProductVo> products;
 
 	public int getId() {
 		return id;
@@ -41,11 +41,11 @@ public class SubCategory {
 		this.description = description;
 	}
 
-	public List<Product> getProducts() {
+	public List<ProductVo> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(List<ProductVo> products) {
 		this.products = products;
 	}
 }
