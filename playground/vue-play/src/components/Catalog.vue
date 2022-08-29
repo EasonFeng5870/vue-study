@@ -1,6 +1,6 @@
 <script>
-import axios from 'axios'
-import cata from './catalog.js'
+import axios from 'axios';
+import cata from './catalog.js';
 
 export default {
     data() {
