@@ -6,7 +6,8 @@ export default {
     data() {
         return {
             lineitems: this.cart.lineitems,
-            orderingstep: 0 /* 0:reviewItems 1:enterAddress 2:enterPayInfo 3:submitOrder 4:done */
+            orderingstep: 0, /* 0:reviewItems 1:enterAddress 2:enterPayInfo 3:submitOrder 4:done */
+            neworder: { lineitems: [], shippingaddress: {}, payinfo: {} }
         }
     },
     props: {
@@ -17,7 +18,9 @@ export default {
             this.cart.lineitems.splice(this.cart.lineitems.indexOf(l), 1);
         },
         placeOrder() {
-
+            this.neworder.lineitems = this.cart.lineitems;
+            this.neworder.shippingaddress = this.$refs.address.address;
+            this.neworder.payinfo = this.$refs.payinfo.payinfo;
         }
     },
     components: {
@@ -57,6 +60,10 @@ export default {
     </div>
 
     <div v-if="orderingstep > 2">
-        <button v-if="orderingstep==3" @click.stop="placeOrder">Place Order</button>
+        <button v-if="orderingstep==3" @click.stop="placeOrder();orderingstep=4">Place Order</button>
+    </div>
+
+    <div v-if="orderingstep==4">
+        {{ neworder }}
     </div>
 </template>

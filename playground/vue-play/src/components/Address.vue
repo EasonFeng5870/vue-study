@@ -18,8 +18,9 @@ export default {
     },
     mounted() {
         console.log('Address component Mounted');
-        if (localStorage.getItem('address')) 
+        if (localStorage.getItem('address')) { 
             this.address = JSON.parse(localStorage.getItem('address'));
+        }
     },
     watch: {
         address: {
@@ -34,12 +35,13 @@ export default {
 </script>
 
 <template>
+    {{ address }}
     <div>
-        <label>Street 1 <input type="text" :value="address.street_1" /></label><br />
-        <label>Street 2 <input type="text" :value="address.street_2" /></label><br />
-        <label>City     <input type="text" :value="address.city" size="10" /></label>
-        <label>State    <input type="text" :value="address.state" size="3" /></label>
-        <label>Country  <input type="text" :value="address.country" size="4"/></label>
-        <label>Zip      <input type="text" :value="address.zipcode" size="10" /></label>
+        <label>Street 1 <input type="text" v-model="address.street_1" size="40" /></label><br />
+        <label>Street 2 <input type="text" v-model="address.street_2" size="40" /></label><br />
+        <label>City     <input type="text" v-model="address.city" size="10" /></label>
+        <label>State    <input type="text" v-model="address.state" size="3" /></label>
+        <label>Country  <input type="text" v-model="address.country" size="4"/></label>
+        <label>Zip      <input type="text" v-model="address.zipcode" size="10" /></label>
     </div>
 </template>

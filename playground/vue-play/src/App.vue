@@ -27,12 +27,12 @@ export default {
     };
   },
   components: {
-    Product,
     Catalog,
+    Product,
     Cart,
     Order,
     OrderList
-},
+  },
   methods: {
     productSelected(p) {
       this.viewwhat = "product";
