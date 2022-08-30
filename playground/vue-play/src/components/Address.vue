@@ -50,13 +50,12 @@ export default {
     </div>
 
     <div v-if="this.doWhat==='display'">
-        {{this.passInAddr}}
-        <!--label>Street 1 {{passInAddr.street_1}} </label><br />
-        <label>Street 2 {{passInAddr.street_2}} </label><br />
-        <label>City     {{passInAddr.city    }} </label>
-        <label>State    {{passInAddr.state   }} </label>
-        <label>Country  {{passInAddr.country }} </label>
-        <label>Zip      {{passInAddr.zipcode }} </label-->
+        <label>Street 1 {{this.passInAddr.street_1}} </label><br />
+        <label>Street 2 {{this.passInAddr.street_2}} </label><br />
+        <label>City     {{this.passInAddr.city    }} </label>
+        <label>State    {{this.passInAddr.state   }} </label>
+        <label>Country  {{this.passInAddr.country }} </label>
+        <label>Zip      {{this.passInAddr.zipcode }} </label>
     </div>
 </div>
 </template>

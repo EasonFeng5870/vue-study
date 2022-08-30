@@ -6,7 +6,7 @@ import Payment from "./Payment.vue";
 export default {
     data() {
         return {
-            orderingstep: 0, /* 0:reviewItems 1:enterAddress 2:enterPayInfo 3:submitOrder 4:done */
+            orderingstep: 0, /* 0:reviewItems 1:enterAddress 2:enterPayInfo 3:done */
             neworder: { id: 0, lineitems: [], shippingaddress: {}, payinfo: {} }
         }
     },
@@ -49,26 +49,18 @@ export default {
     </button>
 
     <div v-if="orderingstep > 0">
-        <h1>Shipping Address</h1>
+        <h1>Ship to: </h1>
         <Address do-what="input" ref="address"></Address>
         <button v-if="orderingstep==1" @click.stop="orderingstep=0">Cancel</button>
         <button v-if="orderingstep==1" @click.stop="orderingstep=2">Continue</button>
     </div>
     
     <div v-if="orderingstep > 1">
-        <h1>Payment</h1>
+        <h1>Pay with: </h1>
         <Payment ref="payinfo"></Payment>
         <button v-if="orderingstep==2" @click.stop="orderingstep=1">Cancel</button>
-        <button v-if="orderingstep==2" @click.stop="orderingstep=3">Continue</button>
-    </div>
-
-    <div v-if="orderingstep > 2">
-        <button v-if="orderingstep==3" @click.stop="placeOrder();orderingstep=4;$emit('orderPlaced', this.neworder)">
+        <button v-if="orderingstep==2" @click.stop="placeOrder();orderingstep=3;$emit('orderPlaced', this.neworder)">
             Place Order
         </button>
-    </div>
-
-    <div v-if="orderingstep==4">
-        {{ neworder }}
     </div>
 </template>
