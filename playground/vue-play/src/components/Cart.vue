@@ -1,11 +1,11 @@
 <script>
+import Axios from 'axios';
 import Address from "./Address.vue";
 import Payment from "./Payment.vue";
 
 export default {
     data() {
         return {
-            lineitems: this.cart.lineitems,
             orderingstep: 0, /* 0:reviewItems 1:enterAddress 2:enterPayInfo 3:submitOrder 4:done */
             neworder: { id: 0, lineitems: [], shippingaddress: {}, payinfo: {} }
         }
@@ -19,9 +19,11 @@ export default {
         },
         placeOrder() {
             this.neworder.id = Math.trunc(Math.random()*1000000000000);
-            this.neworder.lineitems = this.cart.lineitems;
-            this.neworder.shippingaddress = this.$refs.address.address;
-            this.neworder.payinfo = this.$refs.payinfo.payinfo;
+            this.neworder.lineitems = {...this.cart.lineitems};
+            this.neworder.shippingaddress = {...this.$refs.address.address};
+            this.neworder.payinfo = {...this.$refs.payinfo.payinfo};
+            // call backend service to create order and get payment
+            //Axios.post('http://localhost:8080//order', this.neworder);
         }
     },
     components: {
@@ -42,7 +44,7 @@ export default {
             <button v-if="orderingstep==0" @click.stop="removeFromCart(l)">X</button>
         </li>
     </ul>
-    <button v-if="orderingstep==0" :disabled="lineitems.length <= 0" @click.stop="this.orderingstep=1">
+    <button v-if="orderingstep==0" :disabled="this.cart.lineitems.length <= 0" @click.stop="this.orderingstep=1">
         Check Out
     </button>
 

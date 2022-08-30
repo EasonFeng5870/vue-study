@@ -32,6 +32,7 @@ export default {
     orderPlaced(o) {
       console.log('Order placed ' + JSON.stringify(o));
       this.tmporder = o;
+      this.cart = { lineitems: [], total:0 };
       this.viewwhat = "order";
     },
     addToCart(p, q) {
