@@ -7,7 +7,7 @@ export default {
         return {
             lineitems: this.cart.lineitems,
             orderingstep: 0, /* 0:reviewItems 1:enterAddress 2:enterPayInfo 3:submitOrder 4:done */
-            neworder: { lineitems: [], shippingaddress: {}, payinfo: {} }
+            neworder: { id: 0, lineitems: [], shippingaddress: {}, payinfo: {} }
         }
     },
     props: {
@@ -18,6 +18,7 @@ export default {
             this.cart.lineitems.splice(this.cart.lineitems.indexOf(l), 1);
         },
         placeOrder() {
+            this.neworder.id = Math.trunc(Math.random()*1000000000000);
             this.neworder.lineitems = this.cart.lineitems;
             this.neworder.shippingaddress = this.$refs.address.address;
             this.neworder.payinfo = this.$refs.payinfo.payinfo;
@@ -27,7 +28,7 @@ export default {
         Address,
         Payment
     },
-    emits: ['productSelected']
+    emits: ['productSelected', 'orderPlaced']
 }
 </script>
 
@@ -47,7 +48,7 @@ export default {
 
     <div v-if="orderingstep > 0">
         <h1>Shipping Address</h1>
-        <Address ref="address"></Address>
+        <Address do-what="input" ref="address"></Address>
         <button v-if="orderingstep==1" @click.stop="orderingstep=0">Cancel</button>
         <button v-if="orderingstep==1" @click.stop="orderingstep=2">Continue</button>
     </div>
@@ -60,7 +61,9 @@ export default {
     </div>
 
     <div v-if="orderingstep > 2">
-        <button v-if="orderingstep==3" @click.stop="placeOrder();orderingstep=4">Place Order</button>
+        <button v-if="orderingstep==3" @click.stop="placeOrder();orderingstep=4;$emit('orderPlaced', this.neworder)">
+            Place Order
+        </button>
     </div>
 
     <div v-if="orderingstep==4">

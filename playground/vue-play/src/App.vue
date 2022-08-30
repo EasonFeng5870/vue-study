@@ -5,15 +5,6 @@ import Cart from './components/Cart.vue';
 import Order from './components/Order.vue';
 import OrderList from './components/OrderList.vue';
 
-let tmporder = {
-    orderid: 0,
-    lineitems: [],
-    address: {},
-    payment: {},
-    tax: 0,
-    total: 0
-};
-
 export default {
   name: "App",
   data() {
@@ -22,7 +13,7 @@ export default {
       viewwhat: "home",
       productunderview: '',
       cart: { lineitems: [], total: 0 },
-      tmporder: tmporder,
+      tmporder: {},
       quant: 0
     };
   },
@@ -35,8 +26,13 @@ export default {
   },
   methods: {
     productSelected(p) {
-      this.viewwhat = "product";
       this.productunderview = p;
+      this.viewwhat = "product";
+    },
+    orderPlaced(o) {
+      console.log('Order placed ' + JSON.stringify(o));
+      this.tmporder = o;
+      this.viewwhat = "order";
     },
     addToCart(p, q) {
       let lineitem = {product: p, quantity: q};
@@ -57,10 +53,6 @@ export default {
     console.log('App Mounted');
     if (localStorage.getItem('cart')) 
         this.cart = JSON.parse(localStorage.getItem('cart'));
-/*    if (localStorage.getItem('address')) 
-        this.cart = JSON.parse(localStorage.getItem('address'));
-    if (localStorage.getItem('user')) 
-        this.cart = JSON.parse(localStorage.getItem('user'));*/
   }
 }
 
@@ -86,7 +78,7 @@ export default {
     </div>
 
     <div v-if="viewwhat=='cart'">
-      <Cart :cart="this.cart" @product-selected="productSelected"></Cart>
+      <Cart :cart="this.cart" @product-selected="productSelected" @order-placed="orderPlaced"></Cart>
     </div>
 
     <div v-if="viewwhat=='orders'">
@@ -94,7 +86,7 @@ export default {
     </div>
 
     <div v-if="viewwhat=='order'">
-      <Order></Order>
+      <Order :order="this.tmporder"></Order>
     </div>
   </main>
 </template>
