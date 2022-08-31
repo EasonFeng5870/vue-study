@@ -20,7 +20,7 @@ export default {
 </script>
 
 <template>
-    <p>Order #{{this.order.id}} Details</p>
+    <h1>Order #{{this.order.id}}</h1>
     <Address doWhat="display" :passInAddr="this.order.shippingaddress"></Address>
     <ul>
         <li v-for="l in this.order.lineitems">

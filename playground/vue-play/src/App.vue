@@ -4,13 +4,15 @@ import Product from './components/Product.vue';
 import Cart from './components/Cart.vue';
 import Order from './components/Order.vue';
 import OrderList from './components/OrderList.vue';
+import Help from './components/Help.vue';
+import Login from './components/Login.vue';
 
 export default {
   name: "App",
   data() {
     return {
-      user: 'Guest',
-      viewwhat: "home",
+      user: {login: 'Guest', openid: ''},
+      viewwhat: 'home',
       productunderview: '',
       cart: { lineitems: [], total: 0 },
       tmporder: {},
@@ -22,8 +24,10 @@ export default {
     Product,
     Cart,
     Order,
-    OrderList
-  },
+    OrderList,
+    Help,
+    Login
+},
   methods: {
     productSelected(p) {
       this.productunderview = p;
@@ -54,6 +58,8 @@ export default {
     console.log('App Mounted');
     if (localStorage.getItem('cart')) 
         this.cart = JSON.parse(localStorage.getItem('cart'));
+    if (localStorage.getItem('user')) 
+        this.cart = JSON.parse(localStorage.getItem('user'));
   }
 }
 
@@ -70,6 +76,9 @@ export default {
   </header>
 
   <main>
+    <div v-if="viewwhat=='home'">
+      <h1>Home Page</h1>
+    </div>
     <div v-if="viewwhat=='catalog'">
       <Catalog @product-selected="productSelected"></Catalog>
     </div>
@@ -88,6 +97,14 @@ export default {
 
     <div v-if="viewwhat=='order'">
       <Order :order="this.tmporder"></Order>
+    </div>
+
+    <div v-if="viewwhat=='help'">
+      <Help></Help>
+    </div>
+
+    <div v-if="viewwhat=='login'">
+      <Login></Login>
     </div>
   </main>
 </template>
