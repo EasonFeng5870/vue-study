@@ -3,7 +3,7 @@ package com.seafood.api.mapper;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.seafood.api.entity.Orders;
+import com.seafood.api.entity.Order;
 import org.apache.ibatis.annotations.Select;
 
 import org.springframework.stereotype.Repository;
@@ -14,15 +14,15 @@ import org.springframework.stereotype.Repository;
  * @date 2022/08/27
  **/
 @Repository
-public interface OrdersMapper extends BaseMapper<Orders> {
+public interface OrderMapper extends BaseMapper<Order> {
 
 	/**
 	 * get orders by user id
 	 * @param userId user id
 	 * @return orders
 	 */
-	@Select("select * from orders where user_id=#{userId}")
-	List<Orders> getOrdersByUserId(long userId);
+	@Select("select * from order where user_id=#{userId}")
+	List<Order> getOrdersByUserId(long userId);
 
 	/**
 	 * get the order
@@ -30,6 +30,6 @@ public interface OrdersMapper extends BaseMapper<Orders> {
 	 * @param orderId order id
 	 * @return the order
 	 */
-	@Select("select * from orders where user_id=#{userId} and id=#{orderId}")
-	Orders getTheOrder(long userId, long orderId);
+	@Select("select * from order where user_id=#{userId} and id=#{orderId}")
+	Order getTheOrder(long userId, long orderId);
 }

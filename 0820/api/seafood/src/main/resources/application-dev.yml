@@ -4,10 +4,6 @@ server:
     context-path: /seafood
 
 spring:
-#  mvc:
-#    view:
-#      prefix: templates
-#      suffix: html
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:13306/seafood?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
@@ -18,4 +14,4 @@ spring:
 
 logging:
   level:
-    root: debug
+    root: info

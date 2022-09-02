@@ -1,5 +1,7 @@
 package com.seafood.api.entity;
 
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -26,5 +28,11 @@ public class Catalog {
 
 	@TableField("short_desc")
 	private String shortDesc;
+
+	@TableField("create_time")
+	private Date createTime;
+
+	@TableField("update_time")
+	private Date updateTime;
 
 }

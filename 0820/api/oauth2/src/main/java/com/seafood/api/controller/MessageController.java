@@ -1,6 +1,8 @@
 package com.seafood.api.controller;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,15 +41,14 @@ public class MessageController extends BaseController {
 	}
 
 	@GetMapping("/admin")
-	public String admin(HttpServletResponse response,
+	public Map<String, Object> admin(HttpServletResponse response,
 			@AuthenticationPrincipal OAuth2User principal) throws IOException {
-		String token = "abc" + System.currentTimeMillis();
 		System.out.println(gson.toJson(principal));
 		String user = principal.getName() + "|";
 		int userId = principal.getAttribute("id");
 		String avatarUrl = principal.getAttribute("avatar_url");
 		String userName = principal.getAttribute("login");
-		return token;
+		return Collections.singletonMap("name", principal.getAttribute("name"));
 	}
 
 }

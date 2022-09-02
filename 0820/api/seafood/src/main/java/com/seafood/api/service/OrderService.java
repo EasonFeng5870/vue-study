@@ -2,8 +2,8 @@ package com.seafood.api.service;
 
 import java.util.List;
 
-import com.seafood.api.entity.Orders;
-import com.seafood.api.mapper.OrdersMapper;
+import com.seafood.api.entity.Order;
+import com.seafood.api.mapper.OrderMapper;
 
 import org.springframework.stereotype.Service;
 
@@ -15,15 +15,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderService {
 
-	private OrdersMapper ordersMapper;
+	private OrderMapper orderMapper;
 
 	/**
 	 * get all orders by user id
 	 * @param userId user id
 	 * @return orders
 	 */
-	public List<Orders> ordersByUserId(long userId) {
-		return ordersMapper.getOrdersByUserId(userId);
+	public List<Order> ordersByUserId(long userId) {
+		return orderMapper.getOrdersByUserId(userId);
 	}
 
 	/**
@@ -32,8 +32,8 @@ public class OrderService {
 	 * @param orderId order id
 	 * @return the order
 	 */
-	public Orders getOrder(long userId, long orderId) {
-		return ordersMapper.getTheOrder(userId, orderId);
+	public Order getOrder(long userId, long orderId) {
+		return orderMapper.getTheOrder(userId, orderId);
 	}
 
 	/**
@@ -41,8 +41,8 @@ public class OrderService {
 	 * @param orders order info
 	 * @return order id and order payment info
 	 */
-	public String createOrder(Orders orders) {
-		ordersMapper.insert(orders);
+	public String createOrder(Order orders) {
+		orderMapper.insert(orders);
 		return orders.getId() + "|" + orders.getPaymentInfo();
 	}
 

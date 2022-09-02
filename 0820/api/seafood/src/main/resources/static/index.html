@@ -157,11 +157,17 @@
                 product: ''
             }
         },
+        mounted() {
+          console.log(this.version);
+        },
         methods: {
             showProduct(p) {
                 this.viewwhat = 'product';
                 this.product = p;
                 this.quantity = 0;
+
+                this.version = "2";
+                console.log(this.version)
             },
             addToCart(pid, p, quant, unit, price, amount) {
                 let lineitem = {id: pid, product: p, quantity: quant, unit: unit, price: price, amount: quant * price};
@@ -197,6 +203,21 @@
         }
     }
     let app = Vue.createApp(vueConfig);
+    app.config.errorHandler = (err, vm, info) => {
+        //err: error object.
+        //info: error message.
+        console.log(err);
+        console.log(info);
+    };
+    app.config.warnHandler = (msg, vm, trace) => {
+        //msg is a warn message
+        //trace is a stack list
+        console.log(msg);
+        console.log(trace);
+    };
+    app.config.globalProperties = {
+        version: "1.0.0"
+    }
     app.mount("#app");
 </script>
 </body>

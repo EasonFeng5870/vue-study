@@ -2,7 +2,7 @@ package com.seafood.api.controller;
 
 import java.util.List;
 
-import com.seafood.api.entity.Orders;
+import com.seafood.api.entity.Order;
 import com.seafood.api.service.OrderService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +32,8 @@ public class OrderController extends BaseController {
 	 * @return return all orders
 	 */
 	@GetMapping("/{userId}")
-	public List<Orders> orders(@PathVariable(name = "userId") long userId) {
-		List<Orders> ordersList = orderService.ordersByUserId(userId);
+	public List<Order> orders(@PathVariable(name = "userId") long userId) {
+		List<Order> ordersList = orderService.ordersByUserId(userId);
 		return ordersList;
 	}
 
@@ -44,7 +44,7 @@ public class OrderController extends BaseController {
 	 * @return return order details
 	 */
 	@GetMapping("/{userId}/{orderId}")
-	public Orders order(@PathVariable(name = "userId") long userId,
+	public Order order(@PathVariable(name = "userId") long userId,
 			@PathVariable(name = "orderId") long orderId) {
 		return orderService.getOrder(userId, orderId);
 	}
@@ -56,7 +56,7 @@ public class OrderController extends BaseController {
 	 */
 	@PostMapping("/")
 	public String order(@RequestBody String requestBody) {
-		Orders orders = new Orders();
+		Order orders = new Order();
 		return orderService.createOrder(orders);
 	}
 

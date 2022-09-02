@@ -1,5 +1,7 @@
 package com.seafood.api.entity;
 
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -11,9 +13,9 @@ import lombok.Data;
  * @author eason
  * @date 2022/08/27
  **/
-@TableName("addresses")
+@TableName("address")
 @Data
-public class Addresses {
+public class Address {
 
 	@TableId(value = "id", type = IdType.AUTO)
 	private Long id;
@@ -41,5 +43,11 @@ public class Addresses {
 
 	@TableField("zipcode")
 	private String zipcode;
+
+	@TableField("create_time")
+	private Date createTime;
+
+	@TableField("update_time")
+	private Date updateTime;
 
 }

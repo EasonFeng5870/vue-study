@@ -1,7 +1,7 @@
 package com.seafood.api.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.seafood.api.entity.Products;
+import com.seafood.api.entity.User;
 
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  * @date 2022/08/27
  **/
 @Repository
-public interface ProductsMapper extends BaseMapper<Products> {
+public interface UserMapper extends BaseMapper<User> {
 }

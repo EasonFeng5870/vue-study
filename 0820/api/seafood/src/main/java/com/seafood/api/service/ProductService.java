@@ -1,12 +1,15 @@
 package com.seafood.api.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.seafood.api.entity.Products;
-import com.seafood.api.mapper.ProductsMapper;
+import com.seafood.api.entity.Product;
+import com.seafood.api.mapper.ProductMapper;
 import com.seafood.api.vo.ProductVo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductService {
 
-	private ProductsMapper productsMapper;
+	@Autowired
+	private ProductMapper productMapper;
 
 	/**
 	 * get product details by product id
@@ -25,30 +29,39 @@ public class ProductService {
 	 * @return product information
 	 */
 	public ProductVo getProductDetails(long productId) {
-		Products products = productsMapper.selectById(productId);
+		Product products = productMapper.selectById(productId);
 		ProductVo productVo = new ProductVo();
 		productVo.setId(products.getId());
 		productVo.setName(products.getName());
 		productVo.setPrice(8.99);
-		productVo.setUnit("lb");
+		productVo.setUnit(1L);
 		productVo.setInventory(2000);
 		return productVo;
 	}
 
 	/**
-	 * list all products by catalog id
-	 * @param catalogId catalog id
+	 * list all products
 	 * @return all products
 	 */
-	public List<ProductVo> getAllProductsByCatalogId(long catalogId) {
-		ProductVo productVo = new ProductVo();
-		productVo.setId(10101);
-		productVo.setName("Shark");
-		productVo.setPrice(8.99);
-		productVo.setUnit("lb");
-		productVo.setInventory(2000);
-		List<ProductVo> productVos = new ArrayList<>();
-		productVos.add(productVo);
-		return productVos;
+	public Map<Long, List<ProductVo>> getAllProductsByCatalogId(long catalogId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("catalog_id", catalogId);
+		List<Product> products = productMapper.selectByMap(params);
+		Map<Long, List<ProductVo>> map = new HashMap<>();
+		for (Product prod : products) {
+			ProductVo productVo = new ProductVo();
+			productVo.setId(prod.getId());
+			productVo.setName(prod.getName());
+//			productVo.setPrice(prod.get);
+			productVo.setUnit(prod.getMixOrderUnits());
+//			productVo.setInventory(prod.get);
+
+			if (!map.containsKey(prod.getCategoryId())) {
+				map.put(prod.getCategoryId(), new ArrayList<>());
+			}
+			List<ProductVo> vos = map.get(prod.getCategoryId());
+			vos.add(productVo);
+		}
+		return map;
 	}
 }

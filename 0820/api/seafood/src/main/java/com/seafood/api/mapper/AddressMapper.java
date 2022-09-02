@@ -1,7 +1,7 @@
 package com.seafood.api.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.seafood.api.entity.Categories;
+import com.seafood.api.entity.Address;
 
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  * @date 2022/08/27
  **/
 @Repository
-public interface CategoriesMapper extends BaseMapper<Categories> {
+public interface AddressMapper extends BaseMapper<Address> {
 }

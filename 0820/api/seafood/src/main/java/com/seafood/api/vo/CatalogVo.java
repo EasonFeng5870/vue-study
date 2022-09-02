@@ -20,27 +20,4 @@ public class CatalogVo {
 
 	private List<ProductCategory> productCategories;
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDesc() {
-		return desc;
-	}
-
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
-
-	public List<ProductCategory> getProductCategories() {
-		return productCategories;
-	}
-
-	public void setProductCategories(List<ProductCategory> productCategories) {
-		this.productCategories = productCategories;
-	}
 }
