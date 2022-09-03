@@ -30,7 +30,6 @@ export default {
             //Axios.post('http://localhost:8080//order', this.neworder);
             
             this.cart.reset();
-            //this.cart.lineitems.splice(0, this.cart.lineitems.length);
         }
     },
     components: {

@@ -8,16 +8,17 @@ import Help from './components/Help.vue';
 import Login from './components/Login.vue';
 
 import { useCartStore } from './stores/cartstore';
+import { useUsertore } from './stores/userstore';
 
 export default {
   name: "App",
   setup() {
     const cart = useCartStore();
-    return { cart: cart };
+    const user = useUsertore();
+    return { cart, user };
   },
   data() {
     return {
-      user: {login: 'Guest', openid: ''},
       viewwhat: 'home',
       productunderview: '',
       tmporder: {},
@@ -50,8 +51,6 @@ export default {
   },
   mounted() {
     console.log('App Mounted');
-    if (localStorage.getItem('user')) 
-        this.user = JSON.parse(localStorage.getItem('user'));
   }
 }
 
@@ -59,6 +58,7 @@ export default {
 
 <template>
   <header>
+    <p>Dear {{user}}</p>
     <button @click="viewwhat='home'">Home</button>
     <button @click="viewwhat='catalog'">Products</button>
     <button @click="viewwhat='cart'">Cart({{this.cart.lineitems.length}})</button>
