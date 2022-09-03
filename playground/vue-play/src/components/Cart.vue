@@ -67,7 +67,7 @@ export default {
         <h1>Pay with: </h1>
         <Payment ref="payinfo"></Payment>
         <button v-if="orderingstep==2" @click.stop="orderingstep=1">Cancel</button>
-        <button v-if="orderingstep==2" @click.stop="placeOrder();orderingstep=3;$emit('orderPlaced', this.neworder)">
+        <button v-if="orderingstep==2" :disabled="!this.$refs.payinfo.isValid" @click.stop="placeOrder();orderingstep=3;$emit('orderPlaced', this.neworder)">
             Place Order
         </button>
     </div>
