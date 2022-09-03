@@ -11,10 +11,13 @@ export const useCartStore = defineStore ('cart', {
         }
     },
     actions: {
-        addToCart(p, q) {
+        addLineItem(p, q) {
             this.lineitems.push({product:p, quantity:q});
         },
-        removeFromCart(l) {
+        reset() {
+            this.lineitems.splice(0, this.lineitems.length);
+        },
+        removeLineItem(l) {
             this.lineitems.splice(this.lineitems.indexOf(l), 1);
         }
     }

@@ -41,11 +41,10 @@ export default {
     orderPlaced(o) {
       console.log('Order placed ' + JSON.stringify(o));
       this.tmporder = o;
-      this.cart.lineitems.splice(0, this.cart.lineitems.length);
       this.viewwhat = "order";
     },
     addToCart(p, q) {
-      this.cart.addToCart(p, q);
+      this.cart.addLineItem(p, q);
       this.viewwhat = 'home';
     }
   },

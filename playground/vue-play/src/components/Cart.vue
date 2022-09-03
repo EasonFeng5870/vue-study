@@ -18,15 +18,19 @@ export default {
     },
     methods: {
         removeFromCart(l) {
-            this.cart.removeFromCart(l);
+            this.cart.removeLineItem(l);
         },
         placeOrder() {
             this.neworder.id = Math.trunc(Math.random()*1000000000000);
             this.neworder.lineitems = {...this.cart.lineitems};
             this.neworder.shippingaddress = {...this.$refs.address.address};
             this.neworder.payinfo = {...this.$refs.payinfo.payinfo};
+        
             // call backend service to create order and get payment
             //Axios.post('http://localhost:8080//order', this.neworder);
+            
+            this.cart.reset();
+            //this.cart.lineitems.splice(0, this.cart.lineitems.length);
         }
     },
     components: {
