@@ -1,5 +1,5 @@
 <script>
-import axios from 'axios';
+import Axios from 'axios';
 import cata from './catalog.js';
 
 export default {
@@ -9,6 +9,12 @@ export default {
             displaylevel2: true,
             displayproducts: true
         }
+    },
+    mounted() {
+        console.log("Catalog.vue mounted");
+        const res = Axios.get('http://localhost:8080/catalog')
+                        .then((res) => { this.catalog = res.data; })
+                        .catch((err) => { console.log(err); });
     },
     emits: ['productSelected']
 }

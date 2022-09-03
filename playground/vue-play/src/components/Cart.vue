@@ -6,11 +6,11 @@ import Payment from "./Payment.vue";
 import { useCartStore } from '../stores/cartstore';
 
 export default {
-  setup() {
-    const cart = useCartStore();
-    return { cart: cart };
-  },
-  data() {
+    setup() {
+        const cart = useCartStore();
+        return { cart };
+    },
+    data() {
         return {
             orderingstep: 0, /* 0:reviewItems 1:enterAddress 2:enterPayInfo 3:done */
             neworder: { id: 0, lineitems: [], shippingaddress: {}, payinfo: {} }
@@ -27,7 +27,7 @@ export default {
             this.neworder.payinfo = {...this.$refs.payinfo.payinfo};
         
             // call backend service to create order and get payment
-            //Axios.post('http://localhost:8080//order', this.neworder);
+            //Axios.post('http://localhost:8080/order', this.neworder);
             
             this.cart.reset();
         }
