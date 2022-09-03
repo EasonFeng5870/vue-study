@@ -21,8 +21,7 @@ export default {
     return {
       viewwhat: 'home',
       productunderview: '',
-      tmporder: {},
-      quant: 0
+      tmporder: {}
     };
   },
   components: {

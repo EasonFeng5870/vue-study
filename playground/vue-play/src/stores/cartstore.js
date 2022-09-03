@@ -12,7 +12,11 @@ export const useCartStore = defineStore ('cart', {
     actions: {
         addLineItem(p, q) {
             // TODO: merge with existing line item
-            this.lineitems.push({product:p, quantity:q});
+            // calculate subtotal = price * quantity
+            let subtotal = Math.trunc(p.price * q * 100) / 100;
+            // TODO: calculate sales tax using tax rate based on prodcut's taxcode and shipping address
+            // TODO: estimate shipping cost (here or order?)
+            this.lineitems.push({product:p, quantity:q, subtotal: subtotal});
         },
         reset() {
             this.lineitems.splice(0, this.lineitems.length);

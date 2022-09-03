@@ -12,9 +12,9 @@ export default {
     },
     mounted() {
         console.log("Catalog.vue mounted");
-        const res = Axios.get('http://localhost:8080/catalog')
-                        .then((res) => { this.catalog = res.data; })
-                        .catch((err) => { console.log(err); });
+        Axios.get('http://localhost:8080/catalog')
+            .then((res) => { this.catalog = res.data; })
+            .catch((err) => { console.log(err); });
     },
     emits: ['productSelected']
 }
