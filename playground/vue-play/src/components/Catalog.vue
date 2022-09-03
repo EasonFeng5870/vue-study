@@ -5,7 +5,7 @@ import cata from './catalog.js';
 export default {
     data() {
         return {
-            catalog: cata,
+            catalog: {},
             displaylevel2: true,
             displayproducts: true
         }
@@ -14,7 +14,7 @@ export default {
         console.log("Catalog.vue mounted");
         Axios.get('http://localhost:8080/catalog')
             .then((res) => { this.catalog = res.data; })
-            .catch((err) => { console.log(err); });
+            .catch((err) => { console.log(err); this.catalog = cata; });
     },
     emits: ['productSelected']
 }
