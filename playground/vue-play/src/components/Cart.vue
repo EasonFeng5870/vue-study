@@ -56,14 +56,14 @@ export default {
         Check Out
     </button>
 
-    <div v-if="orderingstep > 0">
+    <div v-show="orderingstep > 0">
         <h1>Ship to: </h1>
         <Address do-what="input" ref="address"></Address>
         <button v-if="orderingstep==1" @click.stop="orderingstep=0">Cancel</button>
         <button v-if="orderingstep==1" @click.stop="orderingstep=2">Continue</button>
     </div>
     
-    <div v-if="orderingstep > 1">
+    <div v-show="orderingstep > 1">
         <h1>Pay with: </h1>
         <Payment ref="payinfo"></Payment>
         <button v-if="orderingstep==2" @click.stop="orderingstep=1">Cancel</button>
