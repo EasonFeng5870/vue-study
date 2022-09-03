@@ -7,14 +7,19 @@ import OrderList from './components/OrderList.vue';
 import Help from './components/Help.vue';
 import Login from './components/Login.vue';
 
+import { useCartStore } from './stores/cartstore';
+
 export default {
   name: "App",
+  setup() {
+    const cart = useCartStore();
+    return { cart: cart };
+  },
   data() {
     return {
       user: {login: 'Guest', openid: ''},
       viewwhat: 'home',
       productunderview: '',
-      cart: { lineitems: [], total: 0 },
       tmporder: {},
       quant: 0
     };
@@ -36,30 +41,18 @@ export default {
     orderPlaced(o) {
       console.log('Order placed ' + JSON.stringify(o));
       this.tmporder = o;
-      this.cart = { lineitems: [], total:0 };
+      this.cart.lineitems.splice(0, this.cart.lineitems.length);
       this.viewwhat = "order";
     },
     addToCart(p, q) {
-      let lineitem = {product: p, quantity: q};
-      this.cart.lineitems.push(lineitem);
+      this.cart.addToCart(p, q);
       this.viewwhat = 'home';
     }
   },
-  watch: {
-      cart: {
-          handler() {
-              console.log('Cart Line Items changed!');
-              localStorage.setItem('cart', JSON.stringify(this.cart));
-          },
-          deep: true
-      }
-  },
   mounted() {
     console.log('App Mounted');
-    if (localStorage.getItem('cart')) 
-        this.cart = JSON.parse(localStorage.getItem('cart'));
     if (localStorage.getItem('user')) 
-        this.cart = JSON.parse(localStorage.getItem('user'));
+        this.user = JSON.parse(localStorage.getItem('user'));
   }
 }
 
@@ -69,13 +62,14 @@ export default {
   <header>
     <button @click="viewwhat='home'">Home</button>
     <button @click="viewwhat='catalog'">Products</button>
-    <button @click="viewwhat='cart'">Cart({{cart.lineitems.length}})</button>
+    <button @click="viewwhat='cart'">Cart({{this.cart.lineitems.length}})</button>
     <button @click="viewwhat='orders'">Orders</button>
     <button @click="viewwhat='help'">Help</button>
     <button @click="viewwhat='login'">Login</button>
   </header>
 
   <main>
+    <p> Debug:   {{ this.cart }}</p>
     <div v-if="viewwhat=='home'">
       <h1>Home Page</h1>
     </div>
@@ -88,7 +82,7 @@ export default {
     </div>
 
     <div v-if="viewwhat=='cart'">
-      <Cart :cart="this.cart" @product-selected="productSelected" @order-placed="orderPlaced"></Cart>
+      <Cart @product-selected="productSelected" @order-placed="orderPlaced"></Cart>
     </div>
 
     <div v-if="viewwhat=='orders'">

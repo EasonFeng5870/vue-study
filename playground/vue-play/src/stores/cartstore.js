@@ -3,17 +3,19 @@ import { useLocalStorage } from "@vueuse/core";
 
 export const useCartStore = defineStore ('cart', {
     state: () => {
+        const lis = useLocalStorage('lineitems', []);
         return {
-            user: useLocalStorage('user', {login: 'Guest'}),
-            cart: useLocalStorage('cart', {lineitems: [], total: 0});
+            //user: useLocalStorage('user', {login: 'Guest'}),
+            lineitems: lis,
+            total: 0
         }
     },
     actions: {
         addToCart(p, q) {
-            this.cart.lineitems.push({product:p, quantity:q});
+            this.lineitems.push({product:p, quantity:q});
         },
         removeFromCart(l) {
-            this.cart.lineitems.splice(this.cart.lineitems.indexOf(l), 1);
+            this.lineitems.splice(this.lineitems.indexOf(l), 1);
         }
     }
 })

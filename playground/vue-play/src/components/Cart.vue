@@ -3,19 +3,22 @@ import Axios from 'axios';
 import Address from "./Address.vue";
 import Payment from "./Payment.vue";
 
+import { useCartStore } from '../stores/cartstore';
+
 export default {
-    data() {
+  setup() {
+    const cart = useCartStore();
+    return { cart: cart };
+  },
+  data() {
         return {
             orderingstep: 0, /* 0:reviewItems 1:enterAddress 2:enterPayInfo 3:done */
             neworder: { id: 0, lineitems: [], shippingaddress: {}, payinfo: {} }
         }
     },
-    props: {
-        cart: Object
-    },
     methods: {
         removeFromCart(l) {
-            this.cart.lineitems.splice(this.cart.lineitems.indexOf(l), 1);
+            this.cart.removeFromCart(l);
         },
         placeOrder() {
             this.neworder.id = Math.trunc(Math.random()*1000000000000);
