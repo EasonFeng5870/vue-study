@@ -34,6 +34,9 @@ export default {
     Login
 },
   methods: {
+    logout() {
+      this.user.reset();
+    },
     productSelected(p) {
       this.productunderview = p;
       this.viewwhat = "product";
@@ -63,7 +66,8 @@ export default {
     <button @click="viewwhat='cart'">Cart({{this.cart.lineitems.length}})</button>
     <button @click="viewwhat='orders'">Orders</button>
     <button @click="viewwhat='help'">Help</button>
-    <button @click="viewwhat='login'">Login</button>
+    <button v-if="user.info.login=='Guest'" @click="viewwhat='login';user.info.login='QQ'">Log in</button>
+    <button v-if="user.info.login!='Guest'" @click="viewwhat='home';logout()">Log out</button>
   </header>
 
   <main>
