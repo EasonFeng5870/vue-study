@@ -18,7 +18,7 @@ export default [
         "lineitems":[
             {"product":{"id":10101,"name":"Shark","price":"8.99","unit":"lb","inventory":2000},"quantity":10,"subtotal":89.9},
             {"product":{"id":20102,"name":"Red rock","price":"6.99","unit":"lb","inventory":1000},"quantity":20,"subtotal":139.8}
-],
+        ],
         "shippingaddress":{
             "street_1":"3515 212th PL SE","street_2":"Pooky Doo","city":"Sammamish","state":"Washington","country":"United States","zipcode":"98075-6235"
         },
