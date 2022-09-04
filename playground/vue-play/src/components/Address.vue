@@ -1,16 +1,17 @@
 <script>
+import { useLocalStorage } from '@vueuse/core';
 
 export default {
     data() {
         return {
-            address: {
+            address: useLocalStorage('address', {
                 street_1: '',
                 street_2: '',
                 city: '',
                 state: '',
                 country: '',
                 zipcode: ''
-            }
+            })
         }
     },
     props: {
@@ -22,18 +23,18 @@ export default {
     },
     mounted() {
         console.log('Address component Mounted');
-        if (localStorage.getItem('address')) { 
-            this.address = JSON.parse(localStorage.getItem('address'));
-        }
+    //     if (localStorage.getItem('address')) { 
+    //         this.address = JSON.parse(localStorage.getItem('address'));
+    //     }
     },
     watch: {
-        address: {
-            handler() {
-                console.log('Shipping Address changed!');
-                localStorage.setItem('address', JSON.stringify(this.address));
-            },
-            deep: true
-        }
+        // address: {
+        //     handler() {
+        //         console.log('Shipping Address changed!');
+        //         localStorage.setItem('address', JSON.stringify(this.address));
+        //     },
+        //     deep: true
+        // }
     }
 }
 </script>
