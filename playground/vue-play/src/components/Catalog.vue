@@ -10,20 +10,34 @@ export default {
             displayproducts: {}
         }
     },
+    methods: {
+        resetDisplayFlags() {
+            this.displaylevel2 = {};
+            this.displayproducts = {};
+            this.catalog.productcategories.forEach(pc => {
+                this.displaylevel2[pc.id] = false;
+                this.catalog.productcategories.subcategories.forEach(subc => {
+                    this.displayproducts[pc.id + '.' + subc.id] = false;
+                });
+            });
+        },
+        async getCatalog() {
+            await Axios.get('http://localhost:8080/catalog')
+                .then((res) => {
+                    console.log(res.data);
+                    this.catalog = res.data; 
+                    this.resetDisplayFlags(); 
+                })
+                .catch((err) => { 
+                    console.log(err);
+                    this.catalog = cata;  //TODO: for testing purpose, replace for production
+                    this.resetDisplayFlags();
+                });
+        }
+    },
     mounted() {
         console.log("Catalog.vue mounted");
-        Axios.get('http://localhost:8080/catalog')
-            .then((res) => { this.catalog = res.data; })
-            .catch((err) => { console.log(err); this.catalog = cata; })
-            .then ( () => {
-                console.log(this.catalog);
-                this.catalog.productcategories.forEach( pc => {
-                     this.displaylevel2[pc.id] = false;
-                     this.catalog.productcategories.subcategories.forEach( subc => {
-                        this.displayproducts[pc.id + '.' + subc.id] = false;
-                     });
-                } );
-            });
+        this.getCatalog();
     },
     emits: ['productSelected']
 }
