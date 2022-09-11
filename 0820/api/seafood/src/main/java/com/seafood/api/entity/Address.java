@@ -13,7 +13,7 @@ import lombok.Data;
  * @author eason
  * @date 2022/08/27
  **/
-@TableName("address")
+@TableName("addresses")
 @Data
 public class Address {
 
@@ -33,10 +33,10 @@ public class Address {
 	private String state;
 
 	@TableField("street1")
-	private String street1;
+	private String streetOne;
 
 	@TableField("street2")
-	private String street2;
+	private String streetTwo;
 
 	@TableField("country")
 	private String country;

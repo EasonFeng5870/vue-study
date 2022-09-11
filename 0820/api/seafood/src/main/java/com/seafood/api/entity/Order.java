@@ -13,7 +13,7 @@ import lombok.Data;
  * @author eason
  * @date 2022/08/28
  **/
-@TableName("order")
+@TableName("orders")
 @Data
 public class Order {
 
@@ -32,11 +32,11 @@ public class Order {
 	@TableField("order_total")
 	private Double orderTotal;
 
-	@TableField("shopping_address_id")
-	private Long shoppingAddressId;
+	@TableField("shipping_address_id")
+	private Long shippingAddressId;
 
-	@TableField("shopping_subtotal")
-	private Double shoppingSubtotal;
+	@TableField("shipping_subtotal")
+	private Double shippingSubtotal;
 
 	@TableField("tax_subtotal")
 	private Double taxSubtotal;

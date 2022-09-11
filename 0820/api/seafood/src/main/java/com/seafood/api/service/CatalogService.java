@@ -45,7 +45,7 @@ public class CatalogService {
 	 * @param catalogId catalog id, default is 1
 	 * @return ResponseData<Catalog>
 	 */
-	public ResponseData<CatalogVo> getList(long catalogId) {
+	public CatalogVo getList(long catalogId) {
 		Catalog catalog = catalogMapper.selectById(catalogId);
 		CatalogVo catalogVo = new CatalogVo();
 		catalogVo.setId(catalog.getId());
@@ -53,10 +53,10 @@ public class CatalogService {
 		catalogVo.setDesc(catalog.getShortDesc());
 
 		List<ProductCategory> categories = getCategoriesByCatalogId(catalogId);
-		catalogVo.setProductCategories(categories);
+		catalogVo.setProductcategories(categories);
 
 		updateProductsToSubcategories(categories, catalogId);
-		return new ResponseData<>(catalogVo, OK, MESSAGE);
+		return catalogVo;
 	}
 
 	private List<ProductCategory> getCategoriesByCatalogId(long catalogId) {
@@ -108,7 +108,8 @@ public class CatalogService {
 				continue;
 			}
 			for (SubCategory sub: subCategories) {
-				sub.setProducts(products.get(sub.getId()));
+				sub.setProducts(products.get(sub.getId()) == null ?
+						new ArrayList<>() : products.get(sub.getId()));
 			}
 		}
 

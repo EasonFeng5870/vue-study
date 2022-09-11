@@ -13,7 +13,7 @@ import lombok.Data;
  * @author eason
  * @date 2022/08/27
  **/
-@TableName("user")
+@TableName("users")
 @Data
 public class User {
 
@@ -35,8 +35,17 @@ public class User {
 	@TableField("id_authority")
 	private String idAuthority;
 
+	/**
+	 * user name
+	 */
+	@TableField("name")
+	private String name;
+
 	@TableField("user_img")
 	private String userImg;
+
+	@TableField("is_disable")
+	private int isDisable;
 
 	@TableField("create_time")
 	private Date createTime;

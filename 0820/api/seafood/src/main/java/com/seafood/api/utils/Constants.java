@@ -11,4 +11,9 @@ public class Constants {
 
 	public static final String MESSAGE = "success";
 
+	/**
+	 * 禁用用户
+	 */
+	public static final int USER_DISABLED = 1;
+
 }

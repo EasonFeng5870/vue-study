@@ -23,7 +23,7 @@ public class CatalogController extends BaseController {
 	private CatalogService catalogService;
 
 	@GetMapping(value = "/catalog")
-	public ResponseData<CatalogVo> catalogList(
+	public CatalogVo catalogList(
 			@RequestParam(value = "catalogId", defaultValue = "1") int catalogId) {
 		return catalogService.getList(catalogId);
 	}

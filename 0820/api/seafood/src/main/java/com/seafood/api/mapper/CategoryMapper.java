@@ -16,6 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryMapper extends BaseMapper<Category> {
 
-	@Select("select * from category where catalog_id=#{catalogId}")
+	@Select("select * from categories where catalog_id=#{catalogId}")
 	public List<Category> selectAllProductCategoriesByCatalogId(long catalogId);
 }

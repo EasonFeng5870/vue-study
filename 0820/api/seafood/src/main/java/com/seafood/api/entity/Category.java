@@ -13,7 +13,7 @@ import lombok.Data;
  * @author eason
  * @date 2022/08/27
  **/
-@TableName("category")
+@TableName("categories")
 @Data
 public class Category {
 

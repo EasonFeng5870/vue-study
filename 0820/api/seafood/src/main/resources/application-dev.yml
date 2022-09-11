@@ -1,7 +1,7 @@
 server:
-  port: 8088
+  port: 8080
   servlet:
-    context-path: /seafood
+    context-path: /
 
 spring:
   datasource:
@@ -9,8 +9,7 @@ spring:
     url: jdbc:mysql://localhost:13306/seafood?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     username: seafood
     password: fys`372427166
-    schema: classpath:db/schema.sql
-    data: classpath:db/data.sql
+    schema: classpath:db/schema_data_latest.sql
 
 logging:
   level:

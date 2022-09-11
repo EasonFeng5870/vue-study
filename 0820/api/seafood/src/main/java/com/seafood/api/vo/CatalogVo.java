@@ -18,6 +18,6 @@ public class CatalogVo {
 
 	private String desc;
 
-	private List<ProductCategory> productCategories;
+	private List<ProductCategory> productcategories;
 
 }

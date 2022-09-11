@@ -1,9 +1,17 @@
 package com.seafood.api.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import com.seafood.api.entity.Order;
+import com.seafood.api.mapper.AddressMapper;
 import com.seafood.api.mapper.OrderMapper;
+import com.seafood.api.vo.OrderVo;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import org.springframework.stereotype.Service;
 
@@ -15,15 +23,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderService {
 
+	@Resource
 	private OrderMapper orderMapper;
+
+	@Resource
+	private AddressMapper addressMapper;
+
+	@Resource
+	private OrderLineItemService itemService;
+
+
 
 	/**
 	 * get all orders by user id
 	 * @param userId user id
 	 * @return orders
 	 */
-	public List<Order> ordersByUserId(long userId) {
-		return orderMapper.getOrdersByUserId(userId);
+	public List<OrderVo> ordersByUserId(long userId) {
+		List<OrderVo> vos = new ArrayList<>();
+		List<Order> orders = orderMapper.getOrdersByUserId(userId);
+		for (Order o : orders) {
+			vos.add(convertOrderToVo(o));
+		}
+		return vos;
 	}
 
 	/**
@@ -32,8 +54,20 @@ public class OrderService {
 	 * @param orderId order id
 	 * @return the order
 	 */
-	public Order getOrder(long userId, long orderId) {
-		return orderMapper.getTheOrder(userId, orderId);
+	public OrderVo getOrder(long userId, long orderId) {
+		Order o = orderMapper.getTheOrder(userId, orderId);
+		return convertOrderToVo(o);
+	}
+
+	private OrderVo convertOrderToVo(Order o) {
+		OrderVo vo = new OrderVo();
+		vo.setId(o.getId());
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", o.getShippingAddressId());
+		vo.setShippingAddress(addressMapper.selectByMap(map).get(0));
+		vo.setPayInfo(o.getPaymentInfo());
+		vo.setLineItemVos(itemService.getOrderLineItemsByOrderId(o.getId()));
+		return vo;
 	}
 
 	/**

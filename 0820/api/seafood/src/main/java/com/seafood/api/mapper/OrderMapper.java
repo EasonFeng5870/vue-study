@@ -17,19 +17,19 @@ import org.springframework.stereotype.Repository;
 public interface OrderMapper extends BaseMapper<Order> {
 
 	/**
-	 * get orders by user id
-	 * @param userId user id
-	 * @return orders
-	 */
-	@Select("select * from order where user_id=#{userId}")
-	List<Order> getOrdersByUserId(long userId);
-
-	/**
 	 * get the order
 	 * @param userId user id
 	 * @param orderId order id
 	 * @return the order
 	 */
-	@Select("select * from order where user_id=#{userId} and id=#{orderId}")
+	@Select("select * from orders where user_id=#{userId} and id=#{orderId}")
 	Order getTheOrder(long userId, long orderId);
+
+	/**
+	 * get orders by user id
+	 * @param userId user id
+	 * @return orders
+	 */
+	@Select("select * from orders where user_id=#{userId}")
+	List<Order> getOrdersByUserId(long userId);
 }
