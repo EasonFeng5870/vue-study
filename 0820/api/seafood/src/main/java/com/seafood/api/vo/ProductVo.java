@@ -16,7 +16,7 @@ public class ProductVo {
 
 	private Double price;
 
-	private long unit;
+	private String unit;
 
 	private int inventory;
 

@@ -25,9 +25,10 @@ export default {
             this.neworder.lineitems = {...this.cart.lineitems};
             this.neworder.shippingaddress = {...this.$refs.address.address};
             this.neworder.payinfo = {...this.$refs.payinfo.payinfo};
+            this.neworder.userId = 1;
         
             // call backend service to create order and get payment
-            Axios.post('http://localhost:8080/order', this.neworder)
+            Axios.post(this.baseUrl + 'order/', this.neworder)
                 .then( (res) => { this.neworder = res.data })
                 .catch( (err) => { console.log(err) });
             

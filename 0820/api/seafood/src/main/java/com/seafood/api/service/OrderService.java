@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.seafood.api.dto.OrderDTO;
 import com.seafood.api.entity.Order;
 import com.seafood.api.mapper.AddressMapper;
 import com.seafood.api.mapper.OrderMapper;
@@ -71,12 +72,17 @@ public class OrderService {
 
 	/**
 	 * create an order
-	 * @param orders order info
+	 * @param orderDTO order info
 	 * @return order id and order payment info
 	 */
-	public String createOrder(Order orders) {
-		orderMapper.insert(orders);
-		return orders.getId() + "|" + orders.getPaymentInfo();
+	public OrderVo createOrder(OrderDTO orderDTO) {
+		//save order
+		Order order = new Order();
+		orderMapper.insert(order);
+		//pay
+
+		//update order status.
+		return new OrderVo();
 	}
 
 	/**

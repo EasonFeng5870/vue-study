@@ -26,6 +26,9 @@ public class Product {
 	@TableField("category_id")
 	private Long categoryId;
 
+	@TableField("short_desc")
+	private String shortDesc;
+
 	@TableField("full_desc")
 	private String fullDesc;
 
@@ -49,9 +52,6 @@ public class Product {
 
 	@TableField("order_step_units")
 	private Long orderStepUnits;
-
-	@TableField("short_desc")
-	private String shortDesc;
 
 	@TableField("create_time")
 	private Date createTime;

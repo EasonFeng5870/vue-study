@@ -29,13 +29,14 @@ public class ProductService {
 	 * @return product information
 	 */
 	public ProductVo getProductDetails(long productId) {
-		Product products = productMapper.selectById(productId);
+		Product product = productMapper.selectById(productId);
 		ProductVo productVo = new ProductVo();
-		productVo.setId(products.getId());
-		productVo.setName(products.getName());
+		productVo.setId(product.getId());
+		productVo.setName(product.getName());
 		productVo.setPrice(8.99);
-		productVo.setUnit(1L);
+		productVo.setUnit("$");
 		productVo.setInventory(2000);
+		productVo.setCategoryId(product.getCategoryId());
 		return productVo;
 	}
 
@@ -53,7 +54,7 @@ public class ProductService {
 			productVo.setId(prod.getId());
 			productVo.setName(prod.getName());
 //			productVo.setPrice(prod.get);
-			productVo.setUnit(prod.getMixOrderUnits());
+			productVo.setUnit("$");
 //			productVo.setInventory(prod.get);
 
 			if (!map.containsKey(prod.getCategoryId())) {

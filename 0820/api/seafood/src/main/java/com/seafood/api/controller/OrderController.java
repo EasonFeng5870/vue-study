@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.seafood.api.dto.OrderDTO;
 import com.seafood.api.entity.Order;
 import com.seafood.api.service.OrderService;
 import com.seafood.api.service.UserService;
@@ -109,13 +110,17 @@ public class OrderController extends BaseController {
 
 	/**
 	 * create an order
-	 * @param requestBody order information
+	 * @param orderDTO order information
 	 * @return new order info
 	 */
 	@PostMapping("/")
-	public String order(@RequestBody String requestBody) {
-		Order orders = new Order();
-		return orderService.createOrder(orders);
+	public OrderVo order(OrderDTO orderDTO) {
+		//TODO
+		orderDTO.setUserId(1L);
+		if (!userService.checkUserState(orderDTO.getUserId())) {
+			return new OrderVo();
+		}
+		return orderService.createOrder(orderDTO);
 	}
 
 	/**
