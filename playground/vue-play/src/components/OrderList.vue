@@ -17,8 +17,15 @@ export default {
     mounted() {
         console.log("OrderList mounted");
         // get user's order list from backend service
-        Axios.get("http://localhost:8080/u/" + this.user.info.id + "/order")
-            .then((res) => { this.orders = res.data; })
+        let tempUserId = this.user.info.id;
+        //temp value for validate user
+        tempUserId = 1;
+        Axios.get(this.baseUrl + "order/" + tempUserId)
+            .then((res) => { 
+                console.log("current user orders:");
+                console.log(res.data);
+                this.orders = res.data;
+             })
             .catch((err) => { console.log(err); this.orders = ordrs; });
     }
 }

@@ -12,14 +12,14 @@ export default {
     },
     mounted() {
         console.log("Catalog.vue mounted");
-        Axios.get('http://localhost:8080/catalog')
+        Axios.get(this.baseUrl + 'catalog')
             .then((res) => { this.catalog = res.data; })
             .catch((err) => { console.log(err); this.catalog = cata; })
             .then ( () => {
                 console.log(this.catalog);
                 this.catalog.productcategories.forEach( pc => {
                      this.displaylevel2[pc.id] = false;
-                     this.catalog.productcategories.subcategories.forEach( subc => {
+                     pc.subcategories.forEach( subc => {
                         this.displayproducts[pc.id + '.' + subc.id] = false;
                      });
                 } );

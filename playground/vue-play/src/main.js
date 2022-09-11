@@ -7,6 +7,8 @@ import './assets/main.css'
 
 const pinia = createPinia()
 const app = createApp(App)
-
+app.config.globalProperties ={
+    baseUrl: "http://localhost:8080/" 
+}
 app.use(pinia)
 app.mount('#app')
