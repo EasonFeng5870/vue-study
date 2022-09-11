@@ -11,96 +11,97 @@ import { useCartStore } from './stores/cartstore';
 import { useUsertore } from './stores/userstore';
 
 export default {
-  name: "App",
-  setup() {
-    const cart = useCartStore();
-    const user = useUsertore();
-    return { cart, user };
-  },
-  data() {
-    return {
-      viewwhat: 'home',
-      productunderview: '',
-      tmporder: {}
-    };
-  },
-  components: {
-    Catalog,
-    Product,
-    Cart,
-    Order,
-    OrderList,
-    Help,
-    Login
-},
-  methods: {
-    logout() {
-      this.user.reset();
+    name: "App",
+    setup() {
+        const cart = useCartStore();
+        const user = useUsertore();
+        return { cart, user };
     },
-    productSelected(p) {
-      this.productunderview = p;
-      this.viewwhat = "product";
+    data() {
+        return {
+            currentPath: window.location.pathname,
+            viewwhat: 'home',
+            productunderview: '',
+            tmporder: {}
+        };
     },
-    orderPlaced(o) {
-      console.log('Order placed ' + JSON.stringify(o));
-      this.tmporder = o;
-      this.viewwhat = "order";
+    components: {
+        Catalog,
+        Product,
+        Cart,
+        Order,
+        OrderList,
+        Help,
+        Login
     },
-    addToCart(p, q) {
-      this.cart.addLineItem(p, q);
-      this.viewwhat = 'home';
+    methods: {
+        logout() {
+            this.user.reset();
+        },
+        productSelected(p) {
+            this.productunderview = p;
+            this.viewwhat = "product";
+        },
+        orderPlaced(o) {
+            console.log('Order placed ' + JSON.stringify(o));
+            this.tmporder = o;
+            this.viewwhat = "order";
+        },
+        addToCart(p, q) {
+            this.cart.addLineItem(p, q);
+            this.viewwhat = 'home';
+        }
+    },
+    mounted() {
+        console.log('App Mounted');
     }
-  },
-  mounted() {
-    console.log('App Mounted');
-  }
 }
 
 </script>
 
 <template>
-  <header>
-    <p>Dear {{user}}</p>
-    <button @click="viewwhat='home'">Home</button>
-    <button @click="viewwhat='catalog'">Products</button>
-    <button @click="viewwhat='cart'">Cart({{this.cart.lineitems.length}})</button>
-    <button @click="viewwhat='orders'">Orders</button>
-    <button @click="viewwhat='help'">Help</button>
-    <button v-if="user.info.login=='Guest'" @click="viewwhat='login';user.info.login='QQ'">Log in</button>
-    <button v-if="user.info.login!='Guest'" @click="viewwhat='home';logout()">Log out</button>
-  </header>
+    <header>
+        <p>Dear {{ user.info.login }}, you're visiting {{this.currentPath}} </p>
+        <button @click="viewwhat = 'home'">Home</button>
+        <button @click="viewwhat = 'catalog'">Products</button>
+        <button @click="viewwhat = 'cart'">Cart({{ this.cart.lineitems.length }})</button>
+        <button @click="viewwhat = 'orders'">Orders</button>
+        <button @click="viewwhat = 'help'">Help</button>
+        <button v-if="user.info.login == 'Guest'" @click="viewwhat = 'login'; user.info.login = 'QQ'">Log in</button>
+        <button v-if="user.info.login != 'Guest'" @click="viewwhat = 'home'; logout()">Log out</button>
+    </header>
 
-  <main>
-    <p> Debug:   {{ this.cart }}</p>
-    <div v-if="viewwhat=='home'">
-      <h1>Home Page</h1>
-    </div>
-    <div v-if="viewwhat=='catalog'">
-      <Catalog @product-selected="productSelected"></Catalog>
-    </div>
+    <main>
+        <p> Debug: {{ this.cart }}</p>
+        <div v-if="viewwhat == 'home'">
+            <h1>Home Page</h1>
+        </div>
+        <div v-if="viewwhat == 'catalog'">
+            <Catalog @product-selected="productSelected"></Catalog>
+        </div>
 
-    <div v-if="viewwhat=='product'">
-      <Product :product="this.productunderview" @add-to-cart="addToCart"></Product>
-    </div>
+        <div v-if="viewwhat == 'product'">
+            <Product :product="this.productunderview" @add-to-cart="addToCart"></Product>
+        </div>
 
-    <div v-if="viewwhat=='cart'">
-      <Cart @product-selected="productSelected" @order-placed="orderPlaced"></Cart>
-    </div>
+        <div v-if="viewwhat == 'cart'">
+            <Cart @product-selected="productSelected" @order-placed="orderPlaced"></Cart>
+        </div>
 
-    <div v-if="viewwhat=='orders'">
-      <OrderList></OrderList>
-    </div>
+        <div v-if="viewwhat == 'orders'">
+            <OrderList></OrderList>
+        </div>
 
-    <div v-if="viewwhat=='order'">
-      <Order :order="this.tmporder"></Order>
-    </div>
+        <div v-if="viewwhat == 'order'">
+            <Order :order="this.tmporder"></Order>
+        </div>
 
-    <div v-if="viewwhat=='help'">
-      <Help></Help>
-    </div>
+        <div v-if="viewwhat == 'help'">
+            <Help></Help>
+        </div>
 
-    <div v-if="viewwhat=='login'">
-      <Login></Login>
-    </div>
-  </main>
+        <div v-if="viewwhat == 'login'">
+            <Login></Login>
+        </div>
+    </main>
 </template>
