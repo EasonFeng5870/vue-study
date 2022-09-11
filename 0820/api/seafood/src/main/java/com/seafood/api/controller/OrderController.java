@@ -1,16 +1,19 @@
 package com.seafood.api.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import com.seafood.api.entity.Order;
 import com.seafood.api.service.OrderService;
 import com.seafood.api.service.UserService;
+import com.seafood.api.utils.Constants;
 import com.seafood.api.vo.OrderVo;
+import com.seafood.api.vo.ResponseData;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.seafood.api.utils.Constants.ERROR_USER_STATE_WRONG;
+import static com.seafood.api.utils.Constants.ERROR_USER_STATE_WRONG_MESSAGE;
 
 /**
  * order controller
@@ -36,7 +42,9 @@ public class OrderController extends BaseController {
 
 
 	@GetMapping("/{userId}")
-	public List<OrderVo> orders(@PathVariable(value = "userId", required = false) long userId) {
+	public List<OrderVo> orders(
+			@PathVariable(value = "userId", required = false) long userId) {
+		//TODO
 		userId = 1L;
 		if (!userService.checkUserState(userId)) {
 			return new ArrayList<>();
@@ -91,6 +99,7 @@ public class OrderController extends BaseController {
 	@GetMapping("/{userId}/{orderId}")
 	public OrderVo order(@PathVariable(name = "userId") long userId,
 			@PathVariable(name = "orderId") long orderId) {
+		//TODO
 		userId = 1L;
 		if (!userService.checkUserState(userId)) {
 			return new OrderVo();
@@ -116,9 +125,28 @@ public class OrderController extends BaseController {
 	 * @return if it is canceled.
 	 */
 	@DeleteMapping("/{userId}/{orderId}")
-	public String cancelOrder(@PathVariable(name = "userId") long userId,
+	public ResponseData cancelOrder(@PathVariable(name = "userId") long userId,
 			@PathVariable(name = "orderId") long orderId) {
-		return orderService.cancelOrder(userId, orderId);
+		//TODO
+		userId = 1L;
+		ResponseData rd = new ResponseData();
+		if (!userService.checkUserState(userId)) {
+			rd.setCode(ERROR_USER_STATE_WRONG);
+			rd.setMsg(ERROR_USER_STATE_WRONG_MESSAGE);
+			return rd;
+		}
+		boolean updateState = orderService.cancelOrder(userId, orderId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("updateState", updateState);
+		rd.setContent(map);
+		if (updateState) {
+			rd.setCode(Constants.OK);
+			rd.setMsg(Constants.MESSAGE);
+		} else {
+			rd.setCode(Constants.ERROR_CANCEL_ORDER_FAILED);
+			rd.setMsg(Constants.ERROR_CANCEL_ORDER_FAILED_MESSAGE);
+		}
+		return rd;
 	}
 
 }

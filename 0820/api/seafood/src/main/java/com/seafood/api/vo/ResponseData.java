@@ -14,14 +14,17 @@ public class ResponseData<T> implements Serializable {
 
 	private static final long serialVersionUID = 12345678998745632L;
 
-	private T data;
+	private T content;
 
 	private int code;
 
 	private String msg;
 
-	public ResponseData(T data, int code, String msg) {
-		this.data = data;
+	public ResponseData() {
+	}
+
+	public ResponseData(T content, int code, String msg) {
+		this.content = content;
 		this.code = code;
 		this.msg = msg;
 	}

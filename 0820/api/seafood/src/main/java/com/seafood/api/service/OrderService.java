@@ -11,7 +11,6 @@ import com.seafood.api.entity.Order;
 import com.seafood.api.mapper.AddressMapper;
 import com.seafood.api.mapper.OrderMapper;
 import com.seafood.api.vo.OrderVo;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import org.springframework.stereotype.Service;
 
@@ -86,7 +85,11 @@ public class OrderService {
 	 * @param orderId order id
 	 * @return
 	 */
-	public String cancelOrder(long userId, long orderId) {
-		return "{}";
+	public Boolean cancelOrder(long userId, long orderId) {
+		int updatedRows = orderMapper.updateByIdWithUserId(orderId, userId);
+		if (updatedRows == 1) {
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
 	}
 }
