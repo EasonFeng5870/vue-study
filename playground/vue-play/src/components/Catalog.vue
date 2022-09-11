@@ -22,7 +22,7 @@ export default {
             });
         },
         async getCatalog() {
-            await Axios.get('http://localhost:8080/catalog')
+            await Axios.get(this.baseUrl + 'catalog')
                 .then((res) => {
                     console.log(res.data);
                     this.catalog = res.data; 
