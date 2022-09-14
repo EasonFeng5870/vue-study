@@ -30,13 +30,28 @@ public class ProductService {
 	 */
 	public ProductVo getProductDetails(long productId) {
 		Product product = productMapper.selectById(productId);
+		return convertProductToVo(product);
+	}
+
+	private ProductVo convertProductToVo(Product product) {
 		ProductVo productVo = new ProductVo();
 		productVo.setId(product.getId());
 		productVo.setName(product.getName());
-		productVo.setPrice(8.99);
-		productVo.setUnit("$");
-		productVo.setInventory(2000);
+		productVo.setPrice(product.getPrice());
+		productVo.setUnit(product.getMeasuringUnit());
+		productVo.setInventory(product.getInventory());
 		productVo.setCategoryId(product.getCategoryId());
+		productVo.setShortDesc(product.getShortDesc());
+		productVo.setFullDesc(product.getFullDesc());
+		productVo.setIconUrl(product.getIconUrl());
+		productVo.setImgUrl(product.getImgUrl());
+		productVo.setMaxOrderUnits(product.getMaxOrderUnits());
+		productVo.setMixOrderUnits(product.getMixOrderUnits());
+		productVo.setOrderStepUnits(product.getOrderStepUnits());
+		productVo.setCreateTime(product.getCreateTime());
+		productVo.setUpdateTime(product.getUpdateTime());
+		productVo.setCatalogId(product.getCatalogId());
+		productVo.setMeasuringUnit(product.getMeasuringUnit());
 		return productVo;
 	}
 
@@ -50,13 +65,7 @@ public class ProductService {
 		List<Product> products = productMapper.selectByMap(params);
 		Map<Long, List<ProductVo>> map = new HashMap<>();
 		for (Product prod : products) {
-			ProductVo productVo = new ProductVo();
-			productVo.setId(prod.getId());
-			productVo.setName(prod.getName());
-//			productVo.setPrice(prod.get);
-			productVo.setUnit("$");
-//			productVo.setInventory(prod.get);
-
+			ProductVo productVo = convertProductToVo(prod);
 			if (!map.containsKey(prod.getCategoryId())) {
 				map.put(prod.getCategoryId(), new ArrayList<>());
 			}

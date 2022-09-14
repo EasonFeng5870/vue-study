@@ -1,5 +1,6 @@
 package com.seafood.api.vo;
 
+import com.seafood.api.entity.Product;
 import lombok.Data;
 
 /**
@@ -8,18 +9,8 @@ import lombok.Data;
  * @date 2022/08/25
  **/
 @Data
-public class ProductVo {
-
-	private long id;
-
-	private String name;
-
-	private Double price;
+public class ProductVo extends Product {
 
 	private String unit;
-
-	private int inventory;
-
-	private long categoryId;
 
 }

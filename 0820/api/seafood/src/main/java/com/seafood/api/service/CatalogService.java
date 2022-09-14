@@ -128,7 +128,8 @@ public class CatalogService {
 		integers.add(9);
 		integers.add(10);
 
-		List<Integer> res = integers.stream().filter(data -> data > 5).collect(Collectors.toList());
+		List<Integer> res = integers.stream().filter(data -> data > 5)
+				.collect(Collectors.toList());
 
 		System.out.println(res);
 	}

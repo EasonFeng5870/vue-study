@@ -41,6 +41,12 @@ public class Product {
 	@TableField("name")
 	private String name;
 
+	@TableField("price")
+	private String price;
+
+	@TableField("inventory")
+	private long inventory;
+
 	@TableField("max_order_units")
 	private Long maxOrderUnits;
 

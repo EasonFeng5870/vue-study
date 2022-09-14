@@ -15,7 +15,7 @@ public class LineItemVo implements Serializable {
 
 	private long id;
 
-	private Product product;
+	private ProductVo product;
 
 	private int quantity;
 

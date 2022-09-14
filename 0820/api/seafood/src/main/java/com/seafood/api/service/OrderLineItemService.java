@@ -26,7 +26,7 @@ public class OrderLineItemService {
 	private OrderLineItemMapper itemMapper;
 
 	@Resource
-	private ProductMapper productMapper;
+	private ProductService productService;
 
 	public List<LineItemVo> getOrderLineItemsByOrderId(long orderId) {
 		List<LineItemVo> lineItemVos = new ArrayList<>();
@@ -37,7 +37,7 @@ public class OrderLineItemService {
 		for(OrderLineItem item : items) {
 			LineItemVo lineItemVo = new LineItemVo();
 			lineItemVo.setId(item.getId());
-			lineItemVo.setProduct(productMapper.selectById(item.getProductId()));
+			lineItemVo.setProduct(productService.getProductDetails(item.getProductId()));
 			lineItemVo.setQuantity(item.getQuantity());
 			lineItemVo.setSubtotal(item.getSubTotal());
 			lineItemVo.setExpressNumber(item.getExpressNumber());
