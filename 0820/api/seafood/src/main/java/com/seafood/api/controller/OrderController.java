@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.seafood.api.dto.OrderDTO;
-import com.seafood.api.entity.Order;
 import com.seafood.api.service.OrderService;
 import com.seafood.api.service.UserService;
 import com.seafood.api.utils.Constants;
@@ -114,7 +113,7 @@ public class OrderController extends BaseController {
 	 * @return new order info
 	 */
 	@PostMapping("/")
-	public OrderVo order(OrderDTO orderDTO) {
+	public OrderVo order(@RequestBody OrderDTO orderDTO) {
 		//TODO
 		orderDTO.setUserId(1L);
 		if (!userService.checkUserState(orderDTO.getUserId())) {

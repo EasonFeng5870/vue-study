@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.seafood.api.entity.Address;
 import lombok.Data;
+import net.sf.jsqlparser.statement.select.Pivot;
 
 /**
  *
@@ -20,5 +21,9 @@ public class OrderVo {
 	private Address shippingAddress;
 
 	private String payInfo;
+
+	private String reason;
+
+	private int reasonCode;
 
 }

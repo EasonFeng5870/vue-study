@@ -1,7 +1,6 @@
 package com.seafood.api.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,14 +13,10 @@ import com.seafood.api.mapper.CategoryMapper;
 import com.seafood.api.vo.CatalogVo;
 import com.seafood.api.vo.ProductCategory;
 import com.seafood.api.vo.ProductVo;
-import com.seafood.api.vo.ResponseData;
 import com.seafood.api.vo.SubCategory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import static com.seafood.api.utils.Constants.MESSAGE;
-import static com.seafood.api.utils.Constants.OK;
 
 /**
  *

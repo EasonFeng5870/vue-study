@@ -31,7 +31,7 @@ public class OrderLineItem {
 	private Integer quantity;
 
 	@TableField("subtotal")
-	private Double subTotal;
+	private double subTotal;
 
 	@TableField("express_number")
 	private String expressNumber;
@@ -47,5 +47,23 @@ public class OrderLineItem {
 
 	@TableField("update_time")
 	private Date updateTime;
+
+	@TableField("measuring_unit")
+	private String measuringUnit;
+
+	@TableField("units_ordered")
+	private long unitsOrdered;
+
+	@TableField("unit_price")
+	private double unitPrice;
+
+	@TableField("line_amount")
+	private double lineAmount;
+
+	@TableField("line_tax")
+	private double lineTax;
+
+	@TableField("line_total")
+	private double lineTotal;
 
 }

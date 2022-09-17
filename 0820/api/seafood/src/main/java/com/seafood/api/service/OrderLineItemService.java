@@ -39,7 +39,7 @@ public class OrderLineItemService {
 			lineItemVo.setId(item.getId());
 			lineItemVo.setProduct(productService.getProductDetails(item.getProductId()));
 			lineItemVo.setQuantity(item.getQuantity());
-			lineItemVo.setSubtotal(item.getSubTotal());
+			lineItemVo.setSubTotal(item.getSubTotal());
 			lineItemVo.setExpressNumber(item.getExpressNumber());
 			lineItemVo.setExpressCompany(item.getExpressCompany());
 			lineItemVo.setExpressType(item.getExpressType());
