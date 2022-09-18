@@ -1,5 +1,9 @@
 package com.seafood.api.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import com.seafood.api.entity.Address;
@@ -22,4 +26,9 @@ public class AddressService {
 		return addressMapper.insert(address);
 	}
 
+	public List<Address> getAddressesByUserId(long userId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("user_id", userId);
+		return addressMapper.selectByMap(map);
+	}
 }
