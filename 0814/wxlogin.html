@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wx_login</title>
+    <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js" type="javascript" ></script>
+    <script type="javascript">
+        function setupWx() {
+            console.log(1);
+            var obj = new WxLogin({
+                self_redirect:true,
+                id:"login_container",
+                appid: "wx3b9683b1e22d90f3",
+                scope: "",
+                redirect_uri: "http://localhost:63342/vue-study/homework/0814/wxlogin.html",
+                state: "",
+                style: "",
+                href: ""
+            });
+        }
+    </script>
+</head>
+<body onload="setupWx()">
+    <div id="login_container">
+
+    </div>
+</body>
+</html>

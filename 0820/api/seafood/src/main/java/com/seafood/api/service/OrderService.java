@@ -152,8 +152,15 @@ public class OrderService {
 		item.setLineAmount(itemVo.getLineAmount());
 		item.setLineTax(itemVo.getLineTax());
 		item.setLineTotal(itemVo.getLineTotal());
+		this.mockExpressInfo(item);
 		orderLineItemMapper.insert(item);
 		return item;
+	}
+
+	private void mockExpressInfo(OrderLineItem item) {
+		item.setExpressCompany("顺丰速递");
+		item.setExpressNumber("1234456");
+		item.setExpressType(0);
 	}
 
 	/**
