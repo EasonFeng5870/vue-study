@@ -36,7 +36,7 @@ export default {
     },
     mounted() {
         console.log("Catalog.vue mounted");
-        this.store.loadFromWeb();
+        this.store.loadFromWeb(this.baseUrl + 'catalog');
     },
     emits: ['productselected']
 }

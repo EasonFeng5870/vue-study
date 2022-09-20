@@ -19,10 +19,10 @@ export const useCatalogStore = defineStore('catalog', {
         }
     },
     actions: {
-        loadFromWeb() {
+        loadFromWeb(url) {
             if (this.hasLoaded) return;
 
-            Axios.get(this.baseUrl + 'catalog')
+            Axios.get(url)
                 .then((res) => {
                     console.log(res.data);
                     this.catalog = {...res.data};
