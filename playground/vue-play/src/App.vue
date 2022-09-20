@@ -1,4 +1,5 @@
 <script>
+import Home from './components/Home.vue';
 import Catalog from './components/Catalog.vue';
 import Product from './components/Product.vue';
 import Cart from './components/Cart.vue';
@@ -9,6 +10,17 @@ import Login from './components/Login.vue';
 
 import { useCartStore } from './stores/cartstore';
 import { useUsertore } from './stores/userstore';
+
+const routes = {
+    'home':        Home,
+    'catalog': Catalog  ,
+    'product': Product  ,
+    'cart':    Cart     ,
+    'orders':  OrderList,
+    'order':   Order    ,
+    'help':    Help     ,
+    'login':   Login    ,
+};
 
 export default {
     name: "App",
@@ -25,14 +37,37 @@ export default {
             tmporder: {}
         };
     },
+    computed: {
+        currentView() {
+            return routes[this.viewwhat];
+        },
+        currentProps() {
+            switch (this.viewwhat) {
+                case 'order': return { order: this.tmporder };
+                case 'product': return { product: this.productunderview };
+            }
+            return {};
+        },
+        currentEvent() {
+            switch (this.viewwhat) {
+                case 'catalog': return { productselected: this.productSelected };
+                case 'product': return { addtocart: this.addToCart };
+                case 'cart': return { productselected: this.productSelected, orderplaced: this.orderPlaced }
+            }
+            return {};
+        }
+    },
     components: {
+        Home,
         Catalog,
         Product,
         Cart,
         Order,
         OrderList,
         Help,
-        Login
+        Login,
+    },
+    mounted() {
     },
     methods: {
         logout() {
@@ -51,17 +86,13 @@ export default {
             this.cart.addLineItem(p, q);
             this.viewwhat = 'home';
         }
-    },
-    mounted() {
-        console.log('App Mounted');
     }
 }
-
 </script>
 
 <template>
-    <header>
-        <p>Dear {{ user.info.login }}, you're visiting {{this.currentPath}} </p>
+    <header class = "w3-container w3-blue">
+        <p>Dear {{ user.info.login }}, welcome back! You're visiting {{this.currentPath}} </p>
         <button @click="viewwhat = 'home'">Home</button>
         <button @click="viewwhat = 'catalog'">Products</button>
         <button @click="viewwhat = 'cart'">Cart({{ this.cart.lineitems.length }})</button>
@@ -73,35 +104,6 @@ export default {
 
     <main>
         <p> Debug: {{ this.cart }}</p>
-        <div v-if="viewwhat == 'home'">
-            <h1>Home Page</h1>
-        </div>
-        <div v-if="viewwhat == 'catalog'">
-            <Catalog @product-selected="productSelected"></Catalog>
-        </div>
-
-        <div v-if="viewwhat == 'product'">
-            <Product :product="this.productunderview" @add-to-cart="addToCart"></Product>
-        </div>
-
-        <div v-if="viewwhat == 'cart'">
-            <Cart @product-selected="productSelected" @order-placed="orderPlaced"></Cart>
-        </div>
-
-        <div v-if="viewwhat == 'orders'">
-            <OrderList></OrderList>
-        </div>
-
-        <div v-if="viewwhat == 'order'">
-            <Order :order="this.tmporder"></Order>
-        </div>
-
-        <div v-if="viewwhat == 'help'">
-            <Help></Help>
-        </div>
-
-        <div v-if="viewwhat == 'login'">
-            <Login></Login>
-        </div>
+        <component :is="currentView" v-bind="currentProps" v-on=currentEvent></component>
     </main>
 </template>

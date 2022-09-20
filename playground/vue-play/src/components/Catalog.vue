@@ -1,6 +1,6 @@
 <script>
 import Axios from 'axios';
-import cata from './catalog.js';
+import cata from './catalog.js';  //TODO: testing data, remove for production
 
 export default {
     data() {
@@ -39,7 +39,7 @@ export default {
         console.log("Catalog.vue mounted");
         this.getCatalog();
     },
-    emits: ['productSelected']
+    emits: ['productselected']
 }
 </script>
 
@@ -55,7 +55,7 @@ export default {
                             @click.stop="displayproducts[c.id + '.' + subc.id]=!displayproducts[c.id + '.' + subc.id]">
                         {{subc.name}} | {{subc.description}}
                         <ul v-if="displayproducts[c.id + '.' + subc.id]">
-                            <li v-for="p in subc.products" :key="p.id" @click.stop="$emit('productSelected', p)">
+                            <li v-for="p in subc.products" :key="p.id" @click.stop="$emit('productselected', p)">
                                 <span>{{p.name}}</span>
                             </li>
                         </ul>

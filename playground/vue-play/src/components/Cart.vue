@@ -1,5 +1,5 @@
 <script>
-import Axios from 'axios';
+import Axios from 'axios';  // !import { Axios } won't work!
 import Address from "./Address.vue";
 import Payment from "./Payment.vue";
 
@@ -20,7 +20,7 @@ export default {
         removeFromCart(l) {
             this.cart.removeLineItem(l);
         },
-        placeOrder() {
+        async placeOrder() {
             this.neworder.id = Math.trunc(Math.random()*1000000000000); /// TODO: remove for backend integration
             this.neworder.lineitems = {...this.cart.lineitems};
             this.neworder.shippingaddress = {...this.$refs.address.address};
@@ -28,7 +28,9 @@ export default {
             this.neworder.userId = 1;
         
             // call backend service to create order and get payment
-            Axios.post(this.baseUrl + 'order/', this.neworder)
+            // TODO: replace hardcoded URL with configuration
+            // TODO: add error handling logic
+            await Axios.post(this.baseUrl + 'order/', this.neworder)
                 .then( (res) => { this.neworder = res.data })
                 .catch( (err) => { console.log(err) });
             
@@ -39,7 +41,7 @@ export default {
         Address,
         Payment
     },
-    emits: ['productSelected', 'orderPlaced']
+    emits: ['productselected', 'orderplaced']
 }
 </script>
 
@@ -48,7 +50,7 @@ export default {
     <ul>
         <li v-for="l in this.cart.lineitems" :key="l.product.id">
             {{l.quantity}} {{l.product.unit}} of 
-            <span @click.stop="$emit('productSelected', l.product)">{{l.product.name}}</span>
+            <span @click.stop="$emit('productselected', l.product)">{{l.product.name}}</span>
             priced at ${{l.product.price}} per {{l.product.unit}} in the amount of ${{l.product.price * l.quantity}}
             <button v-if="orderingstep==0" @click.stop="removeFromCart(l)">X</button>
         </li>
@@ -68,7 +70,7 @@ export default {
         <h1>Pay with: </h1>
         <Payment ref="payinfo"></Payment>
         <button v-if="orderingstep==2" @click.stop="orderingstep=1">Cancel</button>
-        <button v-if="orderingstep==2" :disabled="!this.$refs.payinfo.isValid" @click.stop="placeOrder();orderingstep=3;$emit('orderPlaced', this.neworder)">
+        <button v-if="orderingstep==2" :disabled="!this.$refs.payinfo.isValid" @click.stop="placeOrder();orderingstep=3;$emit('orderplaced', this.neworder)">
             Place Order
         </button>
     </div>

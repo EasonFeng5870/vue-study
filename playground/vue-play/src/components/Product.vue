@@ -8,7 +8,7 @@ export default {
   props: {
     product: Object
   },
-  emits: ["addToCart"]
+  emits: ["addtocart"]
 }
 </script>
 
@@ -20,5 +20,5 @@ export default {
   </p>
 	<p>Price: ${{product.price}} per {{product.unit}}</p>
   <input type="number" min="0" max="100" v-model="this.quantity" size="3" />
-  <button @click.stop="$emit('addToCart', product, quantity)">Add to cart</button>
+  <button @click.stop="$emit('addtocart', product, quantity)">Add to cart</button>
 </template>
