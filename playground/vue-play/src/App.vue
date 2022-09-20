@@ -59,17 +59,6 @@ export default {
             return {};
         }
     },
-    components: {
-        Home,
-        Catalog,
-        Product,
-        Cart,
-        Order,
-        OrderList,
-        Help,
-        Login,
-        NotFound,
-    },
     mounted() {
         if (this.currentPath == '/') {
             this.viewwhat = 'home';
