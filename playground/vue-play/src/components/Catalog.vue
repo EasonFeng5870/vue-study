@@ -1,13 +1,9 @@
 <script>
-import Axios from 'axios';
-import cata from './catalog.js';  //TODO: testing data, remove for production
-
 import { useCatalogStore } from '../stores/catalogstore';
 
 export default {
     setup() {
         const store = useCatalogStore();
-        console.log(store.catalog);
         return { store };
     },
     data() {
@@ -29,11 +25,18 @@ export default {
             });
         }
     },
+    watch: {
+        store: {
+            handler() {
+                this.catalog = this.store.catalog;
+                this.resetDisplayFlags();
+            },
+            deep: true
+        }
+    },
     mounted() {
         console.log("Catalog.vue mounted");
         this.store.loadFromWeb();
-        this.catalog = this.store.catalog;
-        this.resetDisplayFlags();
     },
     emits: ['productselected']
 }
@@ -41,7 +44,9 @@ export default {
 
 <template>
     <h1>Products</h1>
-    <div>
+    <p>{{this.store}}</p>
+    <p v-if="!this.store.hasLoaded">Loading...</p>
+    <div v-if="this.store.hasLoaded">
         <ul>
             <li v-for="c in this.catalog.productcategories" :key="c.id"
                      @click.stop="displaylevel2[c.id]=!displaylevel2[c.id]">

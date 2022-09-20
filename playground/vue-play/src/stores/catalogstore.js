@@ -1,17 +1,15 @@
 import Axios from 'axios';
 import { defineStore } from "pinia";
-import { useSessionStorage } from "@vueuse/core";
 
 import cata from '../components/catalog.js';  //TODO: testing data, remove for production
 
 export const useCatalogStore = defineStore('catalog', {
     state: () => {
-        const catalog = useSessionStorage('catalog', {});
-        return { catalog, hasLoaded: false };
+        return { catalog: cata, hasLoaded: false };
     },
     getters: {
         getProductById(pid) {
-            products = [];
+            let products = [];
             this.catalog.productcategories.forEach((pc) => {
                 pc.subcategories.forEach((subc) => {
                     products += subc.products.filter((p) => { p.id == pid });
@@ -27,7 +25,7 @@ export const useCatalogStore = defineStore('catalog', {
             Axios.get(this.baseUrl + 'catalog')
                 .then((res) => {
                     console.log(res.data);
-                    this.catalog = res.data;
+                    this.catalog = {...res.data};
                     this.hasLoaded = true;
                 })
                 .catch((err) => {
