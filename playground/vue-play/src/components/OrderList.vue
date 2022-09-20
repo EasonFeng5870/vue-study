@@ -11,7 +11,8 @@ export default {
     },
     data() { 
         return {
-            orders:[]
+            orders:     [],
+            hasLoaded:  false,
         }
     },
     mounted() {
@@ -25,13 +26,19 @@ export default {
                 console.log("current user orders:");
                 console.log(res.data);
                 this.orders = res.data;
+                this.hasLoaded = true;
              })
-            .catch((err) => { console.log(err); this.orders = ordrs; });
+            .catch((err) => { 
+                console.log(err); 
+                this.orders = ordrs;
+                this.hasLoaded = true; //TODO: change for production
+            });
     }
 }
 </script>
 
 <template>
     <h1>My Orders</h1>
-    {{ this.orders }}
+    <p v-if="!this.hasLoaded">Loading...</p>
+    <div v-if="this.hasLoaded">{{ this.orders }}</div>
 </template>
