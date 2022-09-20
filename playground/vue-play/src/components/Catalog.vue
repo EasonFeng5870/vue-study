@@ -2,10 +2,17 @@
 import Axios from 'axios';
 import cata from './catalog.js';  //TODO: testing data, remove for production
 
+import { useCatalogStore } from '../stores/catalogstore';
+
 export default {
+    setup() {
+        const store = useCatalogStore();
+        console.log(store.catalog);
+        return { store };
+    },
     data() {
         return {
-            catalog: {},
+            catalog: this.store.catalog,
             displaylevel2: {},
             displayproducts: {}
         }
@@ -20,24 +27,13 @@ export default {
                     this.displayproducts[pc.id + '.' + subc.id] = false;
                 });
             });
-        },
-        async getCatalog() {
-            await Axios.get(this.baseUrl + 'catalog')
-                .then((res) => {
-                    console.log(res.data);
-                    this.catalog = res.data; 
-                    this.resetDisplayFlags(); 
-                })
-                .catch((err) => { 
-                    console.log(err);
-                    this.catalog = cata;  //TODO: for testing purpose, replace for production
-                    this.resetDisplayFlags();
-                });
         }
     },
     mounted() {
         console.log("Catalog.vue mounted");
-        this.getCatalog();
+        this.store.loadFromWeb();
+        this.catalog = this.store.catalog;
+        this.resetDisplayFlags();
     },
     emits: ['productselected']
 }
