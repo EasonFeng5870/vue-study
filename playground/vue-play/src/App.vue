@@ -7,19 +7,21 @@ import Order from './components/Order.vue';
 import OrderList from './components/OrderList.vue';
 import Help from './components/Help.vue';
 import Login from './components/Login.vue';
+import NotFound from './components/NotFound.vue';
 
 import { useCartStore } from './stores/cartstore';
 import { useUsertore } from './stores/userstore';
 
 const routes = {
-    'home':        Home,
-    'catalog': Catalog  ,
-    'product': Product  ,
-    'cart':    Cart     ,
-    'orders':  OrderList,
-    'order':   Order    ,
-    'help':    Help     ,
-    'login':   Login    ,
+    'home':     Home     ,
+    'catalog':  Catalog  ,
+    'product':  Product  ,
+    'cart':     Cart     ,
+    'orders':   OrderList,
+    'order':    Order    ,
+    'help':     Help     ,
+    'login':    Login    ,
+    'notfound': NotFound ,
 };
 
 export default {
@@ -66,8 +68,20 @@ export default {
         OrderList,
         Help,
         Login,
+        NotFound,
     },
     mounted() {
+        if (this.currentPath == '/') {
+            this.viewwhat = 'home';
+        } else {
+            let s = this.currentPath.split('/');
+            console.log(s);
+            switch (s[1]) {
+                case 'product': loadProduct(s[2]); break;
+                case 'order': loadOrder(s[2]); break;
+            }
+            this.viewwhat = (routes[s[1]] ? s[1] : 'notfound');
+        }
     },
     methods: {
         logout() {
