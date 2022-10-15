@@ -1,14 +1,16 @@
 <script>
 import { useCatalogStore } from '../stores/catalogstore';
+import Axios from "axios";
 
 export default {
     setup() {
-        const store = useCatalogStore();
-        return { store };
+        /*const store = useCatalogStore();
+        return { store };*/
     },
     data() {
         return {
-            catalog: this.store.catalog,
+            catalog: {},
+            hasLoaded:  false,
             displaylevel2: {},
             displayproducts: {}
         }
@@ -25,18 +27,26 @@ export default {
             });
         }
     },
-    watch: {
+    /*watch: {
         store: {
             handler() {
-                this.catalog = this.store.catalog;
+                this.catalog = {};
                 this.resetDisplayFlags();
             },
             deep: true
         }
-    },
+    },*/
     mounted() {
         console.log("Catalog.vue mounted");
-        this.store.loadFromWeb(this.baseUrl + 'catalog');
+        Axios.get(this.baseUrl + "catalog")
+            .then((res) => {
+                console.log("current user orders:");
+                this.catalog = res.data;
+                this.hasLoaded = true
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         console.log("Catalog.vue mounted end.")
     },
     emits: ['productselected']
@@ -44,9 +54,9 @@ export default {
 </script>
 
 <template>
-    <h1>Products</h1>
-    <p v-if="!this.store.hasLoaded">Loading...</p>
-    <div v-if="this.store.hasLoaded">
+    <h1>Products of {{this.catalog.name}}</h1>
+    <p v-if="!this.hasLoaded">Loading...</p>
+    <div v-if="this.hasLoaded">
         <ul>
             <li v-for="c in this.catalog.productcategories" :key="c.id"
                      @click.stop="displaylevel2[c.id]=!displaylevel2[c.id]">
@@ -65,5 +75,6 @@ export default {
             </li>
         </ul>
     </div>
-    <p>{{this.store}}</p>
+  ---
+    <p>Debug[this.catalog]: {{this.catalog}}</p>
 </template>

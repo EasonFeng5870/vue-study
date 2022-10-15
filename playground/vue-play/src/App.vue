@@ -1,6 +1,6 @@
 <script>
 import Home from './components/Home.vue';
-import Catalog from './components/Catalog.vue';
+import Catalog from './components/CatalogV2.vue';
 import Product from './components/Product.vue';
 import Cart from './components/Cart.vue';
 import Order from './components/Order.vue';
@@ -86,6 +86,7 @@ export default {
             this.viewwhat = "order";
         },
         addToCart(p, q) {
+
             this.cart.addLineItem(p, q);
             this.viewwhat = 'home';
         }
@@ -106,7 +107,8 @@ export default {
     </header>
 
     <main>
-        <p> Debug: {{ this.cart }}</p>
         <component :is="currentView" v-bind="currentProps" v-on=currentEvent></component>
+        -----
+        <p> Debug: {{ this.cart }}</p>
     </main>
 </template>

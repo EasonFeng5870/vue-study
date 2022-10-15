@@ -5,8 +5,8 @@ export default {
     data() {
         return {
             address: useLocalStorage('address', {
-                street_1: '',
-                street_2: '',
+                streetOne: '',
+                streetTwo: '',
                 city: '',
                 state: '',
                 country: '',
@@ -42,8 +42,8 @@ export default {
 <template>
 <div>
     <div v-if="this.doWhat==='input'">
-        <label>Street 1 <input type="text" v-model="this.address.street_1" size="40" /></label><br />
-        <label>Street 2 <input type="text" v-model="this.address.street_2" size="40" /></label><br />
+        <label>Street 1 <input type="text" v-model="this.address.streetOne" size="40" /></label><br />
+        <label>Street 2 <input type="text" v-model="this.address.streetTwo" size="40" /></label><br />
         <label>City     <input type="text" v-model="this.address.city" size="10" /></label>
         <label>State    <input type="text" v-model="this.address.state" size="3" /></label>
         <label>Country  <input type="text" v-model="this.address.country" size="4"/></label>
@@ -51,8 +51,8 @@ export default {
     </div>
 
     <div v-if="this.doWhat==='display'">
-        <label>Street 1 {{this.passInAddr.street_1}} </label><br />
-        <label>Street 2 {{this.passInAddr.street_2}} </label><br />
+        <label>Street 1 {{this.passInAddr.streetOne}} </label><br />
+        <label>Street 2 {{this.passInAddr.streetTwo}} </label><br />
         <label>City     {{this.passInAddr.city    }} </label>
         <label>State    {{this.passInAddr.state   }} </label>
         <label>Country  {{this.passInAddr.country }} </label>

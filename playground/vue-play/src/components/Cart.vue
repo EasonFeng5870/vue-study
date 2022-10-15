@@ -13,7 +13,7 @@ export default {
     data() {
         return {
             orderingstep: 0, /* 0:reviewItems 1:enterAddress 2:enterPayInfo 3:done */
-            neworder: { id: 0, lineitems: [], shippingaddress: {}, payinfo: {} }
+            neworder: { id: 0, lineitems: [], shippingAddress: {}, payInfo: {} }
         }
     },
     methods: {
@@ -22,16 +22,20 @@ export default {
         },
         async placeOrder() {
             this.neworder.id = Math.trunc(Math.random()*1000000000000); /// TODO: remove for backend integration
-            this.neworder.lineitems = {...this.cart.lineitems};
-            this.neworder.shippingaddress = {...this.$refs.address.address};
-            this.neworder.payinfo = {...this.$refs.payinfo.payinfo};
+            this.neworder.lineitems = [...this.cart.lineitems];
+            this.neworder.shippingAddress = {...this.$refs.address.address};
+            let pay = JSON.stringify({...this.$refs.payInfo.payInfo});
+            console.log(pay)
+            this.neworder.payInfo = pay;
             this.neworder.userId = 1;
         
             // call backend service to create order and get payment
             // TODO: replace hardcoded URL with configuration
             // TODO: add error handling logic
             await Axios.post(this.baseUrl + 'order/', this.neworder)
-                .then( (res) => { this.neworder = res.data })
+                .then( (res) => {
+                  this.neworder.id = res.data.id
+                })
                 .catch( (err) => { console.log(err) });
             
             this.cart.reset();
@@ -68,9 +72,9 @@ export default {
     
     <div v-show="orderingstep > 1">
         <h1>Pay with: </h1>
-        <Payment ref="payinfo"></Payment>
+        <Payment ref="payInfo"></Payment>
         <button v-if="orderingstep==2" @click.stop="orderingstep=1">Cancel</button>
-        <button v-if="orderingstep==2" :disabled="!this.$refs.payinfo.isValid" @click.stop="placeOrder();orderingstep=3;$emit('orderplaced', this.neworder)">
+        <button v-if="orderingstep==2" :disabled="!this.$refs.payInfo.isValid" @click.stop="placeOrder();orderingstep=3;$emit('orderplaced', this.neworder)">
             Place Order
         </button>
     </div>

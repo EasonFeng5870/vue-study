@@ -9,7 +9,7 @@ export default {
         const user = useUsertore();
         return { user };
     },
-    data() { 
+    data() {
         return {
             orders:     [],
             hasLoaded:  false,

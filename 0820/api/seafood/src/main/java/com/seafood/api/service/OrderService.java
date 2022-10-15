@@ -102,7 +102,7 @@ public class OrderService {
 
 		Address shippingAddress = orderDTO.getShippingAddress();
 		Address address = null;
-		if (orderDTO.getShippingAddress().getId() != 0) {
+		if (null != shippingAddress.getId() && 0 != shippingAddress.getId()) {
 			order.setShippingAddressId(shippingAddress.getId());
 			address = addressMapper.selectById(shippingAddress.getId());
 		} else {

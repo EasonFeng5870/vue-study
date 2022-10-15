@@ -20,6 +20,7 @@ export const useCatalogStore = defineStore('catalog', {
     },
     actions: {
         loadFromWeb(url) {
+            console.log("this.hasLoaded = " + this.hasLoaded)
             if (this.hasLoaded) return;
 
             Axios.get(url)
@@ -30,6 +31,7 @@ export const useCatalogStore = defineStore('catalog', {
                 })
                 .catch((err) => {
                     console.log(err);
+                    console.log("web get failed, load from file.")
                     this.loadFromFile(); //TODO: refactor for production
                 });
         },

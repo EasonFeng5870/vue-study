@@ -8,8 +8,8 @@ export default {
         /*
             id: '',
             lineitems: [],
-            shippingaddress: {},
-            payinfo: {} 
+            shippingAddress: {},
+            payInfo: {}
         */
     },
     components: {
@@ -21,7 +21,7 @@ export default {
 
 <template>
     <h1>Order #{{this.order.id}}</h1>
-    <Address doWhat="display" :passInAddr="this.order.shippingaddress"></Address>
+    <Address doWhat="display" :passInAddr="this.order.shippingAddress"></Address>
     <ul>
         <li v-for="l in this.order.lineitems">
             {{l.quantity}} {{l.product.unit}} of {{l.product.name}}
