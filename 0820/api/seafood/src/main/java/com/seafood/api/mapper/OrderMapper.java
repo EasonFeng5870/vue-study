@@ -31,7 +31,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 	 * @param userId user id
 	 * @return orders
 	 */
-	@Select("select * from orders where user_id=#{userId}")
+	@Select("select * from orders where user_id=#{userId} order by create_time desc")
 	List<Order> getOrdersByUserId(long userId);
 
 	/**

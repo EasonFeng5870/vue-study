@@ -40,5 +40,22 @@ export default {
 <template>
     <h1>My Orders</h1>
     <p v-if="!this.hasLoaded">Loading...</p>
-    <div v-if="this.hasLoaded">{{ this.orders }}</div>
+    <div v-if="this.hasLoaded">
+      <table border="1">
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>quantity</th>
+          <th>create time</th>
+        </tr>
+        <tr v-for="c in this.orders">
+          <td>{{c.id}}</td>
+          <td>{{c.lineItemVos[0].product.name}}</td>
+          <td>{{c.lineItemVos[0].quantity}}</td>
+          <td>{{c.createTime}}</td>
+        </tr>
+      </table>
+      --
+      Debug [this.orders]: {{ this.orders }}
+    </div>
 </template>

@@ -26,4 +26,6 @@ public class OrderVo {
 
 	private int reasonCode;
 
+	private String createTime;
+
 }

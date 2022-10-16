@@ -1,9 +1,12 @@
 package com.seafood.api.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.annotation.Resource;
 
@@ -71,6 +74,8 @@ public class OrderService {
 	}
 
 	private OrderVo convertOrderToVo(Order o) {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		df.setTimeZone(TimeZone.getTimeZone("GMT"));
 		OrderVo vo = new OrderVo();
 		vo.setId(o.getId());
 		Map<String, Object> map = new HashMap<>();
@@ -78,6 +83,7 @@ public class OrderService {
 		vo.setShippingAddress(addressMapper.selectByMap(map).get(0));
 		vo.setPayInfo(o.getPaymentInfo());
 		vo.setLineItemVos(itemService.getOrderLineItemsByOrderId(o.getId()));
+		vo.setCreateTime(df.format(o.getCreateTime()));
 		return vo;
 	}
 
