@@ -54,7 +54,8 @@ export default {
             switch (this.viewwhat) {
                 case 'catalog': return { productselected: this.productSelected };
                 case 'product': return { addtocart: this.addToCart };
-                case 'cart': return { productselected: this.productSelected, orderplaced: this.orderPlaced }
+                case 'order': return { orderselected: this.orderSelected };
+                case 'cart': return { productselected: this.productSelected, orderplaced: this.orderPlaced };
             }
             return {};
         }
@@ -80,13 +81,16 @@ export default {
             this.productunderview = p;
             this.viewwhat = "product";
         },
+        orderSelected(p) {
+            this.tmporder = o;
+            this.viewwhat = "order";
+        },
         orderPlaced(o) {
             console.log('Order placed ' + JSON.stringify(o));
             this.tmporder = o;
             this.viewwhat = "order";
         },
         addToCart(p, q) {
-
             this.cart.addLineItem(p, q);
             this.viewwhat = 'home';
         }
@@ -108,7 +112,7 @@ export default {
 
     <main>
         <component :is="currentView" v-bind="currentProps" v-on=currentEvent></component>
-        -----
-        <p> Debug: {{ this.cart }}</p>
+        <!-- -&#45;&#45;&#45;&#45;
+        <p> Debug: {{ this.cart }}</p>-->
     </main>
 </template>

@@ -5,12 +5,6 @@ import Payment from "./Payment.vue";
 export default {
     props: {
         order: Object
-        /*
-            id: '',
-            lineitems: [],
-            shippingAddress: {},
-            payInfo: {}
-        */
     },
     components: {
         Address,

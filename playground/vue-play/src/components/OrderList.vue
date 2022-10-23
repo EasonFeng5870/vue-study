@@ -13,6 +13,7 @@ export default {
         return {
             orders:     [],
             hasLoaded:  false,
+            neworder: { id: 0, lineitems: [], shippingAddress: {}, payInfo: {} }
         }
     },
     mounted() {
@@ -33,7 +34,19 @@ export default {
                 this.orders = ordrs;
                 this.hasLoaded = true; //TODO: change for production
             });
-    }
+    },
+    methods: {
+        transOrder(o) {
+            this.neworder.id = o.id;
+            this.neworder.lineitems = o.lineItemVos;
+            this.neworder.shippingAddress = o.shippingAddress;
+            this.neworder.payInfo = o.payInfo;
+            console.log(this.neworder.lineitems);
+            this.$emit('orderselected', this.neworder);
+            console.log(2);
+        }
+    },
+    emits: ['orderselected']
 }
 </script>
 
@@ -48,14 +61,12 @@ export default {
           <th>quantity</th>
           <th>create time</th>
         </tr>
-        <tr v-for="c in this.orders">
+        <tr v-for="c in this.orders" @click.stop="transOrder(c);this.$emit('orderselected', this.neworder)">
           <td>{{c.id}}</td>
           <td>{{c.lineItemVos[0].product.name}}</td>
           <td>{{c.lineItemVos[0].quantity}}</td>
           <td>{{c.createTime}}</td>
         </tr>
       </table>
-      --
-      Debug [this.orders]: {{ this.orders }}
     </div>
 </template>
